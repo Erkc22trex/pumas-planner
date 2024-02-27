@@ -2,6 +2,7 @@ import { Navbar } from '../Components/HomePage/Navbar'
 import { Footer } from '../Components/HomePage/Footer'
 import { Card } from '../Components/HomePage/Card'
 import { FormContacto } from '../Components/HomePage/form-contacto'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const cards = [
     {
@@ -22,31 +23,26 @@ const cards = [
 ]
 
 export function Home() {
-
+    const {isAuthenticated, isLoading} = useAuth0()
     return (
         <>
             <Navbar />
-            <div className="container mx-auto bgCustom">
-            
-
-                <section className="text-gray-600 body-font">
-                    <div className="container px-5 py-24 mx-auto">
-                        <div className="flex flex-wrap -m-4">
-                            {
-                                cards.map((card, index) => (
-                                    <Card 
-                                        image={card.image}
-                                        title={card.title}
-                                        description={card.description}
-                                    />
-                                ))
-                            }
-                        </div>
+            <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" :"bgCustom"}>
+                <div className="container mx-auto px-5 py-24 text-gray-600 body-font">
+                    <div className="flex flex-wrap -m-4">
+                        {
+                            cards.map((card, index) => (
+                                <Card
+                                    key={index}
+                                    image={card.image}
+                                    title={card.title}
+                                    description={card.description}
+                                />
+                            ))
+                        }
                     </div>
-                </section>
-
+                </div>
                 <FormContacto />
-
             </div>
             <Footer />
         </>
