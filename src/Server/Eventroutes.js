@@ -1,8 +1,14 @@
 const express = require("express");
 const router = express.Router();
+
 // Ruta para crear un nuevo evento (POST)
-router.get('/eventos', (req, res) => {
-  res.send("Ruta de eventos");
+router.post('/eventos', (req, res) => {
+  res.send("Evento creado con exito");
+});
+
+// Ruta para filtrar un nuevo evento (POST)
+router.get('/eventos/:filter', (req, res) => {
+  res.send("El evento es:");
 });
 
 // Ruta para editar un evento existente (PUT/PATCH)
