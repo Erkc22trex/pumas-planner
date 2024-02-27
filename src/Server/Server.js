@@ -21,7 +21,7 @@ app.set('views', __dirname + '/views');
 
 app.use('/', require("./Eventroutes.js"));
 app.use('/eventos', require("./Commentroutes.js"));
-
+app.use('/eventos', require("./Participantroutes.js"));
 app.use(express.static(__dirname + "/public"));
 
 
