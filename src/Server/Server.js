@@ -20,6 +20,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 app.use('/', require("./Eventroutes.js"));
+app.use('/eventos', require("./Commentroutes.js"));
 
 app.use(express.static(__dirname + "/public"));
 
