@@ -19,21 +19,21 @@ const dbo = require("./db.connection.js");
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-app.use('/', require("./Eventroutes.js"));
-app.use('/eventos', require("./Commentroutes.js"));
-app.use('/eventos', require("./Participantroutes.js"));
+app.use('/eventos', require("./Eventroutes.js"));
+app.use('/eventos/comentarios', require("./Commentroutes.js"));
+app.use('/eventos/participantes', require("./Participantroutes.js"));
 app.use(express.static(__dirname + "/public"));
 
 
-//app.listen(port, () => {
-            //Realiza la conexion a la base de datos
-           // dbo.connectToServer(async function (err) {
-                //if (err) 
-                  //  console.error(err);
-             //}); 
-             //console.log("Conectado a la base de datos");
-        //});
+app.listen(port, () => {
+  
+            dbo.connectToServer(async function (err) {
+                if (err) 
+                   console.error(err);
+             }); 
+             console.log("Conectado a la base de datos");
+        });
 
-        app.listen(port, () => {
-            console.log('servidor a su servicio en el puerto', port)
-        })
+        //app.listen(port, () => {
+            //console.log('servidor a su servicio en el puerto', port)
+        //})
