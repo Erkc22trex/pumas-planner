@@ -1,12 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import { Home } from './Pages/Home';
+import { Route, Routes, Switch } from 'react-router-dom';
+import EventPage from './Pages/Event'
 
 function App() {
   return (
-    <>
-      <Home />
-    </>
+    <div>
+      <Routes>
+
+        <Route path='/' element={<Home />} />
+        <Route path='evento' element={<EventPage />} />
+      
+    </ Routes>
+    </div>
   );
 }
 
