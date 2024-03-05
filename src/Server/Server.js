@@ -29,7 +29,7 @@ mongoose.set("strictQuery", false)
 mongoose.connect('mongodb+srv://Erick:ProyectoLenguaje4@lp4.nza8gvi.mongodb.net/?retryWrites=true&w=majority&appName=LP4')
 .then(() => {
     console.log('Conectado a MongoDB')
-    app.listen(3000, () => {
+    app.listen(port, () => {
         console.log('Node API app esta ejecutandose en el puerto 3000')
     });
 }).catch( () => {
