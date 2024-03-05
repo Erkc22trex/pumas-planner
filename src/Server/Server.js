@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
+const mongoose = require('mongoose')
 
 //Lamado para las variables de ambientes
 require("dotenv").config({path: "./db.env"});
@@ -25,14 +25,16 @@ app.use('/eventos/participantes', require("./Participantroutes.js"));
 app.use(express.static(__dirname + "/public"));
 
 
-app.listen(port, () => {
-  
-            dbo.connectToServer(async function (err) {
-                if (err) 
-                   console.error(err);
-             }); 
-             console.log("Conectado a la base de datos");
-        });
+mongoose.set("strictQuery", false)
+mongoose.connect('mongodb+srv://Erick:ProyectoLenguaje4@lp4.nza8gvi.mongodb.net/?retryWrites=true&w=majority&appName=LP4')
+.then(() => {
+    console.log('Conectado a MongoDB')
+    app.listen(3000, () => {
+        console.log('Node API app esta ejecutandose en el puerto 3000')
+    });
+}).catch( () => {
+    console.log(error)
+})
 
         //app.listen(port, () => {
             //console.log('servidor a su servicio en el puerto', port)
