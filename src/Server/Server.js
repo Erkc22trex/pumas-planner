@@ -30,7 +30,7 @@ mongoose.connect('mongodb+srv://Erick:ProyectoLenguaje4@lp4.nza8gvi.mongodb.net/
 .then(() => {
     console.log('Conectado a MongoDB')
     app.listen(port, () => {
-        console.log('Node API app esta ejecutandose en el puerto 3000')
+        console.log('Node API app esta ejecutandose en el puerto ',port)
     });
 }).catch( () => {
     console.log(error)
