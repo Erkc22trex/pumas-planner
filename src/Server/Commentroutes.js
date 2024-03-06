@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Comentario = require('../Models/Commentmodel');
-const Comentarios = require("../Models/Commentmodel");
 const app = express()
 
 // Ruta para crear un nuevo comentario (POST)
@@ -50,14 +49,6 @@ router.put('/editar/:id', async(req, res) => {
     res.status(500).json({message: error, message})
 }
 });
-
-// Ruta para mostrar detalles de un comentario (GET)
-//router.get('/detalles/:id', (req, res) => {
-  // Lógica para obtener detalles de un evento por su ID
-  //res.send(`Obtener comentario con ID ${req.params.id}`);
-//});
-
-// Ruta para eliminar un comentario (DELETE)
 router.delete('/eliminar/:id', async(req, res) => {
   // Lógica para eliminar un evento por su ID
   try {
