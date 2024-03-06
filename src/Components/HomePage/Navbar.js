@@ -30,12 +30,6 @@ export function Navbar() {
                             ) : (
                                 <>
                                     <a className="mr-5 hover:text-gray-900 border-y-2 border-y-stone-900">
-                                        Inicio
-                                    </a>
-                                    <a className="mr-5 hover:text-gray-900 border-y-2 border-y-stone-900">
-                                        Proximos eventos
-                                    </a>
-                                    <a className="mr-5 hover:text-gray-900 border-y-2 border-y-stone-900">
                                         Contacto
                                     </a>
                                 </>
