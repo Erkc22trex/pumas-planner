@@ -7,13 +7,8 @@ app.use(express.json())
 // Ruta para crear un nuevo evento (POST)
 router.post('/crear', async(req, res) => {
   try {
-<<<<<<< HEAD
-    const product = await Product.create(req.body)
-    res.status(200).json(Product);
-=======
-    const eventos = await Eventos.create(req.body)
-    res.status(200).json(eventos);
->>>>>>> 7e5fc3402dc82d9b4199d1af8ed882ac50c3f1d9
+    const product = await Eventos.create(req.body)
+    res.status(200).json(product);
 } catch (error) {
     console.log(error.message)
     res.status(500).json({message: error.message})

@@ -26,7 +26,7 @@ app.use(express.static(__dirname + "/public"));
 
 
 mongoose.set("strictQuery", false)
-mongoose.connect('mongodb+srv://Erick:ProyectoLenguaje4@lp4.nza8gvi.mongodb.net/?retryWrites=true&w=majority&appName=LP4')
+mongoose.connect('mongodb+srv://Erick:ProyectoLenguaje4@lp4.nza8gvi.mongodb.net/DBA_Eventos?retryWrites=true&w=majority&appName=LP4')
 .then(() => {
     console.log('Conectado a MongoDB')
     app.listen(port, () => {
