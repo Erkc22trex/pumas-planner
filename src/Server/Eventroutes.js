@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Product = require('../Models/Eventmodel')
+const Eventos = require('../Models/Eventmodel')
 const app = express()
 
 app.use(express.json())
 // Ruta para crear un nuevo evento (POST)
 router.post('/crear', async(req, res) => {
   try {
-    const product = await Product.create(req.body)
-    res.status(200).json(product);
+    const eventos = await Eventos.create(req.body)
+    res.status(200).json(eventos);
 } catch (error) {
     console.log(error.message)
     res.status(500).json({message: error.message})
