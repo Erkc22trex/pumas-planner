@@ -3,7 +3,9 @@ const router = express.Router();
 
 // Ruta para crear un nuevo evento (POST)
 router.post('/crear', (req, res) => {
-  res.send("Evento creado con exito");
+  console.log(req.body);
+  res.send(req.body)
+  //res.send("Evento creado con exito");
 });
 
 // Ruta para filtrar un nuevo evento (POST)
