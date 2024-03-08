@@ -1,7 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { useState } from 'react';
 
-
 function Map() {
     const [markers, setMarkers] = useState([]); // Estado para almacenar las ubicaciones marcadas
 
@@ -24,12 +23,12 @@ function Map() {
             >
                 {/* Renderiza todos los marcadores en el mapa */}
                 {markers.map((marker, index) => (
-                    <Marker key={index} position={marker} />
+                <Marker key={index} position={marker} />
                 ))}
+
             </GoogleMap>
         </LoadScript>
     );
 }
-
 export default Map;
 
