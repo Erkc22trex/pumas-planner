@@ -3,6 +3,7 @@ import Btn from "../Btn.tsx";
 import Inputset from "../Input.tsx";
 import Map from "./Map.js";
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { Link } from 'react-router-dom';
 
 export default function Form() {
     const { register, handleSubmit, control } = useForm();
@@ -108,7 +109,9 @@ export default function Form() {
                     </div> */}
                     <div className="flex justify-between">
                         <Btn type="submit">Guardar</Btn>
-                        <Btn type="">Salir</Btn>
+                        <Link to="/#">
+                            <Btn type="">Salir</Btn>
+                        </Link>
                     </div>
                 </form>
             </div>
