@@ -11,7 +11,8 @@ export function Navbar() {
 
     return (
         <header className="text-gray-900 bg-amber-400 body-font sticky top-0">
-            <div className="container mx-auto flex flex-wrap p-2 md:p-5 flex-col md:flex-row items-center">
+            <div className="container mx-auto flex justify-between flex-wrap p-2 md:p-5 flex-col md:flex-row items-center">
+
                 <div className="flex items-center justify-center md:justify-start w-full md:w-auto mb-2 md:mb-0">
                     <img
                         src="./puma2.png"
@@ -21,11 +22,16 @@ export function Navbar() {
                         PUMAS PLANNER
                     </span>
                 </div>
-                <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center md:justify-end space-x-4 md:space-x-6">
+                {
+                    isAuthenticated && (
+                        <SearchBar />
+                    )
+                }
+                <nav className="flex flex-wrap items-center text-base justify-center md:justify-end space-x-4 md:space-x-6">
+                    {/*md:ml-auto*/}
                     {
                         isAuthenticated && (
                             <>
-                                <SearchBar />
                                 <NotificationButton />
                                 <div className="h-12 border-2 border-white"></div>
                                 <BtnEvent />
@@ -34,6 +40,7 @@ export function Navbar() {
                     }
                     <DropdownBtn />
                 </nav>
+
                 {!isAuthenticated && <Login />}
             </div>
         </header>

@@ -17,13 +17,13 @@ function Map() {
         <LoadScript googleMapsApiKey="AIzaSyDfVj-Cnt4b0MzOoCGGFqCY3zhymkPEUSY">
             <GoogleMap
                 mapContainerStyle={{ height: '400px', width: '100%' }}
-                center={{ lat: 14.084818012234798 , lng: -87.16664545886665 }} // Coordenadas de Tegucigalpa como centro del mapa
+                center={{ lat: 14.084818012234798, lng: -87.16664545886665 }} // Coordenadas de Tegucigalpa como centro del mapa
                 zoom={10}
                 onClick={handleMapClick} // Maneja el clic en el mapa
             >
                 {/* Renderiza todos los marcadores en el mapa */}
                 {markers.map((marker, index) => (
-                <Marker key={index} position={marker} />
+                    <Marker key={index} position={marker} />
                 ))}
 
             </GoogleMap>
