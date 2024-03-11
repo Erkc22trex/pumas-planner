@@ -8,6 +8,5 @@ export default function EventPage() {
         <Form></Form>
         </div>
         </>
-
     );
 }

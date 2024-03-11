@@ -1,7 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { useState } from 'react';
 
-
 function Map() {
     const [markers, setMarkers] = useState([]); // Estado para almacenar las ubicaciones marcadas
 
@@ -18,7 +17,7 @@ function Map() {
         <LoadScript googleMapsApiKey="AIzaSyDfVj-Cnt4b0MzOoCGGFqCY3zhymkPEUSY">
             <GoogleMap
                 mapContainerStyle={{ height: '400px', width: '100%' }}
-                center={{ lat: 14.084818012234798 , lng: -87.16664545886665 }} // Coordenadas de Tegucigalpa como centro del mapa
+                center={{ lat: 14.084818012234798, lng: -87.16664545886665 }} // Coordenadas de Tegucigalpa como centro del mapa
                 zoom={10}
                 onClick={handleMapClick} // Maneja el clic en el mapa
             >
@@ -26,10 +25,10 @@ function Map() {
                 {markers.map((marker, index) => (
                     <Marker key={index} position={marker} />
                 ))}
+
             </GoogleMap>
         </LoadScript>
     );
 }
-
 export default Map;
 
