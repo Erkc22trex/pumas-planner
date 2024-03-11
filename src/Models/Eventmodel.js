@@ -2,22 +2,30 @@ const mongoose = require('mongoose')
 
 const eventoSchema = mongoose.Schema(
     {
-        Titulo: {
+        event_name: {
             type: String,
-            required: [true,"Porfavor ingrese un producto"]
+            required: [true,"POr favor ingrese un nombre"]
         },
-        Fecha: {
+        place: {
             type: String,
             required: true,
             default: 0
         },
-        Hora: {
-            type: Number,
-            required: true,
-        },
-        image: {
+        schedule_date: {
             type: String,
-            requiered: false,
+            required: false,
+        },
+        description: {
+            type: String,
+            required: false,
+        },
+        participants:{
+            type: String,
+            required: false,
+        },
+        duration:{
+            type: String,
+            required: false,
         }
     },
     {
