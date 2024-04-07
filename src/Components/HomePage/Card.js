@@ -1,9 +1,12 @@
 import React from 'react';
-import FormDesc from '../../Pages/Eventdetail';
+import Descrip from '../../Pages/Eventdetail';
+import ReactDOM from 'react-dom';
+
 
 export function Card({ image, title, description }) {
   const handleButtonClick1 = () => {
     console.log('Button 1 clicked');
+    ReactDOM.render(<Descrip />, document.getElementById('root'));
   };
   
   const handleButtonClick2 = () => {
@@ -24,6 +27,7 @@ export function Card({ image, title, description }) {
         </p>
       </div>
       <div className="p-6 pt-0">
+
         <button 
           data-ripple-light="true" 
           type="button" 
@@ -44,4 +48,3 @@ export function Card({ image, title, description }) {
     </div>
   );
 }
-
