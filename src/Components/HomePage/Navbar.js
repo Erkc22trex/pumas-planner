@@ -10,7 +10,7 @@ export function Navbar() {
     const { isAuthenticated } = useAuth0();
 
     return (
-        <header className="text-gray-900 bg-amber-400 body-font sticky top-0">
+        <header className="text-gray-900 bg-amber-400 body-font sticky top-0 z-50"> {/* z-50 establece un z-index alto */}
             <div className="container mx-auto flex justify-between flex-wrap p-2 md:p-5 flex-col md:flex-row items-center">
 
                 <div className="flex items-center justify-center md:justify-start w-full md:w-auto mb-2 md:mb-0">
@@ -46,4 +46,3 @@ export function Navbar() {
         </header>
     );
 }
-

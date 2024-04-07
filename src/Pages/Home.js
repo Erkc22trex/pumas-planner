@@ -32,7 +32,7 @@ export function Home() {
             <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" : "bgCustom"}>
                 <div className="container mx-auto px-5 py-5 text-gray-600 body-font">
                     <h1 className="text-xl font-bold text-white mb-4">MIS EVENTOS AGENDADOS</h1>
-                    <hr className="border-t border-white border-solid my-4" /> 
+                    <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" /> 
                     <div className="overflow-x-auto whitespace-nowrap flex">
                         {cards.map((card, index) => (
                             <Card
@@ -44,9 +44,10 @@ export function Home() {
                             />
                         ))}
                     </div>
+                    </div>
                     <div className="container mx-auto px-5 py-5 text-gray-600 body-font">
-                    <h1 className="text-xl font-bold text-white mb-4">MIS EVENTOS </h1>
-                    <hr className="border-t border-white border-solid my-4" /> 
+                    <h1 className="text-xl font-bold text-white mb-4">EVENTOS AGENDADOS</h1>
+                    <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" /> 
                     <div className="overflow-x-auto whitespace-nowrap flex">
                         {cards.map((card, index) => (
                             <Card
@@ -58,7 +59,6 @@ export function Home() {
                             />
                         ))}
                         </div>
-                    </div>
                 </div>
                 <FormContacto />
             </div>

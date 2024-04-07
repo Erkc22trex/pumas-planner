@@ -48,7 +48,6 @@ export default function Form() {
                         register={register}
                         placeholder="Lugar"
                     />
-                    {/* Agregar campo de texto para la descripción */}
                     <div className="my-4">
                         <label htmlFor="descripcion" className="text-white">Descripción</label>
                         <textarea
