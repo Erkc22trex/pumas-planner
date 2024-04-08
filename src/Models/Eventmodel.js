@@ -1,31 +1,63 @@
 const mongoose = require('mongoose')
 
+// const eventoSchema = mongoose.Schema(
+//     {
+//         event_name: {
+//             type: String,
+//             required: [true,"POr favor ingrese un nombre"]
+//         },
+//         place: {
+//             type: String,
+//             required: true,
+//             default: 0
+//         },
+//         schedule_date: {
+//             type: String,
+//             required: false,
+//         },
+//         description: {
+//             type: String,
+//             required: false,
+//         },
+//         participants:{
+//             type: String,
+//             required: false,
+//         },
+//         duration:{
+//             type: String,
+//             required: false,
+//         }
+//     },
+//     {
+//         timestamps: true
+//     }
+// )
+
 const eventoSchema = mongoose.Schema(
     {
-        event_name: {
+        nombre: {
             type: String,
-            required: [true,"POr favor ingrese un nombre"]
         },
-        place: {
+        lugar: {
             type: String,
-            required: true,
-            default: 0
         },
-        schedule_date: {
-            type: String,
-            required: false,
+        fecha: {
+            type: Date,
         },
-        description: {
+        hora: {
             type: String,
-            required: false,
         },
-        participants:{
+        lugar: {
             type: String,
-            required: false,
         },
-        duration:{
+        descripcion: {
             type: String,
-            required: false,
+        },
+        image: {
+            type: String,
+        },
+        id_usr: {
+            type: String,
         }
     },
     {

@@ -4,13 +4,30 @@ import Inputset from "../Input.tsx";
 import Map from "./Map.js";
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from "axios";
 
 export default function Form() {
     const { register, handleSubmit, control } = useForm();
     const [imagePreview, setImagePreview] = useState(null);
+    const { user } = useAuth0();
+
 
     const onSubmit = (data) => {
         console.log(data);
+
+        console.log(data.image.length)
+
+        axios.post("http://localhost:5000/eventos/crear", {
+            ...data,
+            id_usr: user?.sub
+        })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (

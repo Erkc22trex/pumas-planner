@@ -20,7 +20,7 @@ type InputProps = {
 
 export default function Inputset({ title, type = 'text', id, label, register, ...rest } : InputProps) {
     return (
-        <div className="relative mb-4">
+        <div className="relative mb-2">
             <label htmlFor="name" className="leading-7 text-sm text-gray-100">{title}</label>
             <input
                 type={type}

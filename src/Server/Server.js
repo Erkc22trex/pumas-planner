@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
 
 //Lamado para las variables de ambientes
 require("dotenv").config({path: "./db.env"});
@@ -9,6 +10,14 @@ require("dotenv").config({path: "./db.env"});
 const port = process.env.PORT || 3000;
 //Para encontrar los origenes de conexion
 app.use(cors(port));
+app.use(bodyParser.json({
+    limit: '20mb',
+    extended: true
+}));
+app.use(bodyParser.urlencoded({ 
+    limit: '20mb',
+    extended: true
+}))
 //Para que use las librerias de conexion
 app.use(express.json());
 //Ruta del documento que se va hacer en MongoDB ATLAS
