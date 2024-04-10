@@ -75,7 +75,7 @@ export default function Form() {
                         ></textarea>
                     </div>
 
-                    {/* <Map /> */}
+                    { <Map /> }
 
                     <div>
                         <label>Subir Imagen</label>
