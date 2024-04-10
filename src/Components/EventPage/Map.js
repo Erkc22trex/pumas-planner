@@ -1,5 +1,5 @@
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import React, { useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 function Map() {
     const [location, setLocation] = useState(null); // Estado para almacenar la ubicación
@@ -58,4 +58,3 @@ function Map() {
 }
 
 export default Map;
-
