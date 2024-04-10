@@ -34,7 +34,7 @@ export default function Form() {
         <div className={"bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]"}>
             <h1 className="text-white text-center -mb-6 text-6xl font-semibold title-font ">Creación del Evento</h1>
             <div className="container px-5 py-10 mx-auto flex justify-center sm:flex-nowrap flex-wrap">
-                <form onSubmit={handleSubmit(onSubmit)} className="lg:w-1/3 md:w-1/2 bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
+                <form onSubmit={handleSubmit(onSubmit)} className="lg:w-2/4 md:w-1/4 bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
                     <Inputset
                         title={"Nombre"}
                         type="text"
