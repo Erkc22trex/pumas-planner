@@ -10,8 +10,8 @@ function Calendar() {
   }
 
   return (
-    <div className="w-full h-full bg-blue-800 p-4 rounded-lg flex justify-center items-start">
-      <div className="button-container flex justify-center w-full">
+    <div className="w-full h-full bg-blue-800 p-4 rounded-lg flex flex-col justify-center items-center">
+      <div className="button-container flex justify-center w-full relative">
         <add-to-calendar-button
           name="Add the title of your event"
           description="A nice description does not hurt"
@@ -20,7 +20,7 @@ function Calendar() {
           startTime="10:13"
           endTime="17:57"
           location="Somewhere over the rainbow"
-          options="['Apple','Google']"
+          options="['Google']"
           timeZone="Europe/Berlin"
           trigger="click"
           inline
@@ -28,8 +28,11 @@ function Calendar() {
           iCalFileName="Reminder-Event"
         />
       </div>
+      <div className="text-l font-bold text-white mt-4">EVENTOS CREADOS</div>
+      <hr className="border-t border-white border-solid my-2 w-full"/>
     </div>
   );
+  
 }
 
 export default Calendar;

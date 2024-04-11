@@ -1,34 +1,31 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-function Map() {
-    const [location, setLocation] = useState(null); // Estado para almacenar la ubicación
-    const [address, setAddress] = useState(''); // Estado para almacenar la dirección
+const Map = () => {
+    const [markerPosition, setMarkerPosition] = useState(null);
+    const [address, setAddress] = useState('');
 
-    // Función para manejar el clic en el mapa y agregar un marcador en la ubicación
     const handleMapClick = async (event) => {
-        const newLocation = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng()
-        };
-        setLocation(newLocation); // Actualiza la ubicación con la nueva ubicación
-        await getAddress(newLocation.lat, newLocation.lng); // Obtener la dirección
+        const { latLng } = event;
+        const newMarkerPosition = { lat: latLng.lat(), lng: latLng.lng() };
+        setMarkerPosition(newMarkerPosition);
+        await getAddress(newMarkerPosition);
     };
 
-    // Función para obtener la dirección a partir de las coordenadas
-    const getAddress = async (latitude, longitude) => {
+    const getAddress = async ({ lat, lng }) => {
         try {
-            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDfVj-Cnt4b0MzOoCGGFqCY3zhymkPEUSY`);
-            const data = await response.json();
-            if (data.status === 'OK' && data.results.length > 0) {
-                const address = data.results[0].formatted_address;
-                setAddress(address); // Actualiza el estado de la dirección
-            } else {
-                setAddress('No se pudo obtener la dirección'); // Si no se encuentran resultados válidos
-            }
-            console.log(data); // Imprime la respuesta en la consola
+            const geocoder = new window.google.maps.Geocoder();
+            const latLng = new window.google.maps.LatLng(lat, lng);
+            geocoder.geocode({ location: latLng }, (results, status) => {
+                if (status === 'OK' && results.length > 0) {
+                    setAddress(results[0].formatted_address);
+                } else {
+                    setAddress('No se pudo obtener la dirección');
+                }
+            });
         } catch (error) {
             console.error('Error al obtener la dirección:', error);
+            setAddress('Error al obtener la dirección');
         }
     };
 
@@ -37,24 +34,22 @@ function Map() {
             <LoadScript googleMapsApiKey="AIzaSyDfVj-Cnt4b0MzOoCGGFqCY3zhymkPEUSY">
                 <GoogleMap
                     mapContainerStyle={{ height: '400px', width: '100%' }}
-                    center={{ lat: 14.084818012234798, lng: -87.16664545886665 }} // Coordenadas de Tegucigalpa como centro del mapa
+                    center={{ lat: 14.084818012234798, lng: -87.16664545886665 }}
                     zoom={10}
-                    onClick={handleMapClick} // Maneja el clic en el mapa
+                    onClick={handleMapClick}
                 >
-                    {/* Renderiza el marcador solo si hay una ubicación */}
-                    {location && <Marker position={location} />}
+                    {markerPosition && <Marker position={markerPosition} />}
                 </GoogleMap>
             </LoadScript>
-            {/* Muestra las coordenadas y la dirección debajo del mapa */}
-            {location && (
+            {markerPosition && (
                 <div>
-                    <p>Latitud: {location.lat}</p>
-                    <p>Longitud: {location.lng}</p>
+                    <p>Latitud: {markerPosition.lat}</p>
+                    <p>Longitud: {markerPosition.lng}</p>
                     <p>Dirección: {address}</p>
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default Map;
