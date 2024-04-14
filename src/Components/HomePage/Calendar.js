@@ -24,18 +24,23 @@ function Calendar() {
     console.log("Agregando evento al calendario de Google:", evento);
   };
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="w-full h-full bg-blue-800 p-4 rounded-lg overflow-hidden">
       <div className="text-l font-bold text-white mt-4 mb-2">EVENTOS CREADOS</div>
-      <div className="max-h-96 overflow-y-auto scrollbar" id="style-2">
+      <hr className="border-t border-white border-solid my-4 w-full" />
+      <div className="max-h-[96vh] overflow-y-auto scrollbar" >
         {misEventos.map((evento, index) => (
           <div key={evento._id} className="mb-4">
             {index !== 0 && <hr className="border-t border-white border-solid my-4 w-full" />}
             <div className="text-white">
-              <p className="font-semibold">Nombre: {evento.nombre}</p>
+              <p className="font-semibold">Evento: {evento.nombre}</p>
               <p>Fecha: {new Date(evento.fecha).toLocaleDateString()}</p>
               <p>Hora: {evento.hora}</p>
-              <button onClick={() => addToGoogleCalendar(evento)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Agregar a Google Calendar</button>
+              <button onClick={() => addToGoogleCalendar(evento)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Agregar a mi calendario</button>
             </div>
           </div>
         ))}
@@ -45,5 +50,6 @@ function Calendar() {
 }
 
 export default Calendar;
+
 
 
