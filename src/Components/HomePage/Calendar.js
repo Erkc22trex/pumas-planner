@@ -1,39 +1,49 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
-import 'add-to-calendar-button';
 
 function Calendar() {
-  const { isAuthenticated } = useAuth0();
+  const [misEventos, setMisEventos] = useState([]);
+  const { isAuthenticated, user } = useAuth0();
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      axios.get(`http://localhost:5000/eventos/filtrar/${user.sub}`)
+        .then(res => {
+          setMisEventos(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [isAuthenticated, user]);
+
+  const addToGoogleCalendar = (evento) => {
+    // Aquí deberías implementar la lógica para agregar el evento al calendario de Google
+    // Puedes utilizar la API de Google Calendar o algún paquete externo para facilitar esta tarea
+    console.log("Agregando evento al calendario de Google:", evento);
+  };
 
   return (
-    <div className="w-full h-full bg-blue-800 p-4 rounded-lg flex flex-col justify-center items-center">
-      <div className="button-container flex justify-center w-full relative">
-        <add-to-calendar-button
-          name="Add the title of your event"
-          description="A nice description does not hurt"
-          startDate="2022-02-21"
-          endDate="2022-03-24"
-          startTime="10:13"
-          endTime="17:57"
-          location="Somewhere over the rainbow"
-          options="['Google']"
-          timeZone="Europe/Berlin"
-          trigger="click"
-          inline
-          listStyle="modal"
-          iCalFileName="Reminder-Event"
-        />
+    <div className="w-full h-full bg-blue-800 p-4 rounded-lg overflow-hidden">
+      <div className="text-l font-bold text-white mt-4 mb-2">EVENTOS CREADOS</div>
+      <div className="max-h-96 overflow-y-auto scrollbar" id="style-2">
+        {misEventos.map((evento, index) => (
+          <div key={evento._id} className="mb-4">
+            {index !== 0 && <hr className="border-t border-white border-solid my-4 w-full" />}
+            <div className="text-white">
+              <p className="font-semibold">Nombre: {evento.nombre}</p>
+              <p>Fecha: {new Date(evento.fecha).toLocaleDateString()}</p>
+              <p>Hora: {evento.hora}</p>
+              <button onClick={() => addToGoogleCalendar(evento)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Agregar a Google Calendar</button>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="text-l font-bold text-white mt-4">EVENTOS CREADOS</div>
-      <hr className="border-t border-white border-solid my-2 w-full"/>
     </div>
   );
-  
 }
 
 export default Calendar;
+
 
