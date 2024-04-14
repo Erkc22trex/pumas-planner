@@ -6,6 +6,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
+import Eventos from '../../Models/Eventmodel.js';
 
 export default function Form() {
     const { register, handleSubmit, control } = useForm();
@@ -29,6 +30,17 @@ export default function Form() {
                 console.log(err);
             });
     }
+    // Función para eliminar un evento
+    const deleteEvent = (eventId) => {
+        axios.delete(`localhost:5000/eventos/eliminar/:eventId`)
+            .then(res => {
+                console.log(res.data);
+                
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        };
 
     return (
         <div className={"bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]"}>
@@ -110,6 +122,7 @@ export default function Form() {
                             )}
                         />
                     </div>
+
                     {/* <div className="flex items-center
                      justify-center w-full mt-5 mb-5">
                         <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
