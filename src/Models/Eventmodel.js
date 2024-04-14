@@ -45,7 +45,7 @@ const eventoSchema = mongoose.Schema(
             type: Date,
         },
         hora: {
-            type: String,
+            type: Date,
         },
         lugar: {
             type: String,

@@ -19,10 +19,20 @@ function Calendar() {
   }, [isAuthenticated, user]);
 
   const addToGoogleCalendar = (evento) => {
-    // Aquí deberías implementar la lógica para agregar el evento al calendario de Google
-    // Puedes utilizar la API de Google Calendar o algún paquete externo para facilitar esta tarea
-    console.log("Agregando evento al calendario de Google:", evento);
+    // Extraer datos del evento
+    const { nombre, fecha, hora, lugar, descripcion } = evento;
+  
+    // Formatear la fecha y la hora para Google Calendar
+    const formattedDate = new Date(fecha).toISOString().replace(/-|:|\.\d+/g, '');
+    const startTime = formattedDate;
+  
+    // Construir la URL de Google Calendar
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${nombre}&details=${descripcion}&location=${lugar}&dates=${startTime}/${startTime}`;
+  
+    // Abrir la URL en una nueva pestaña
+    window.open(googleCalendarUrl);
   };
+  
 
   if (!isAuthenticated) {
     return null;
