@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 import Eventos from '../../Models/Eventmodel.js';
+import { useHistory } from 'react-router-dom';
 
 export default function Form() {
     const { register, handleSubmit, control } = useForm();
