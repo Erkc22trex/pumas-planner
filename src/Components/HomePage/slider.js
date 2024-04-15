@@ -27,11 +27,14 @@ export function SimpleSlider({ data, view=false }) {
             <div className="mt-20">
                 <Slider {...settings}>
                     {data?.map((d) => (
-                        <Card 
+                            <Card 
                             _id={d._id}
                             nombre={d.nombre}
                             image={d.image}
                             descripcion={d.descripcion}
+                            hora={d.hora}
+                            lugar={d.lugar}
+                            fecha={d.fecha} 
                             view={view}
                         />
                     ))}

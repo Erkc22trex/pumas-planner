@@ -36,26 +36,9 @@ function Calendar() {
       });
   };
 
-
   // Función para abrir el formulario de edición
   const openEditForm = (evento) => {
     setEventoEditar(evento); // Establecer el evento a editar
-  };
-
-  // Función para agregar evento a Google Calendar
-  const addToGoogleCalendar = (evento) => {
-    // Extraer datos del evento
-    const { nombre, fecha, hora, lugar, descripcion } = evento;
-
-    // Formatear la fecha y la hora para Google Calendar
-    const formattedDate = new Date(fecha).toISOString().replace(/-|:|\.\d+/g, '');
-    const startTime = formattedDate;
-
-    // Construir la URL de Google Calendar
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${nombre}&details=${descripcion}&location=${lugar}&dates=${startTime}/${startTime}`;
-
-    // Abrir la URL en una nueva pestaña
-    window.open(googleCalendarUrl);
   };
 
   if (!isAuthenticated) {
@@ -74,9 +57,7 @@ function Calendar() {
               <p className="font-semibold">Evento: {evento.nombre}</p>
               <p>Fecha: {new Date(evento.fecha).toLocaleDateString()}</p>
               <p>Hora: {evento.hora}</p>
-              <button onClick={() => addToGoogleCalendar(evento)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Agregar a mi calendario</button>
-              <button onClick={() => openEditForm(evento)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2 mt-2">Editar</button>
-              
+              <button onClick={() => openEditForm(evento)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2 mt-2">Editar</button> 
               <button onClick={() => deleteEvent(evento._id)} className="button rounded mt-4 ml-4" type="button">
                 <span className="button__text">Eliminar</span>
                 <span className="button__icon">
