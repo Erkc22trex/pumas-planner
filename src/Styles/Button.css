@@ -1,0 +1,97 @@
+/* Importación de la fuente */
+@import url("https://fonts.googleapis.com/css?family=Mukta:700");
+
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+}
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Estilos del contenedor del botón */
+.learn-more-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* Puedes ajustar el padding según necesites */
+}
+
+/* Estilos del botón */
+button.learn-more {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: 1rem; /* Ajusta el tamaño de la fuente según necesites */
+  font-family: "Mukta", sans-serif; /* Aplicación de la fuente */
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  width: 9rem; /* Ancho del botón */
+  height: auto; /* Altura automática */
+}
+button.learn-more .circle {
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem; /* Ancho del círculo */
+  height: 3rem; /* Altura del círculo */
+  background: #c4b14b; /* Color de fondo del círculo */
+  border-radius: 1.625rem; /* Borde redondeado del círculo */
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+button.learn-more .circle .icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+button.learn-more .circle .icon.arrow {
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+button.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #fff;
+  border-right: 0.125rem solid #fff;
+  transform: rotate(45deg);
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+button.learn-more .button-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.7rem 0;
+  margin: 0 0 0 1.85rem; /* Margen izquierdo del texto */
+  color: #c4b14b; /* Color del texto */
+  font-weight: 700; /* Peso de la fuente */
+  line-height: 1.6; /* Altura de línea */
+  text-align: center; /* Alineación del texto */
+  text-transform: uppercase; /* Transformación de texto a mayúsculas */
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+button:hover .circle {
+  width: 100%; /* Ancho del círculo al pasar el ratón */
+}
+button:hover .circle .icon.arrow {
+  background: #fff; /* Cambio de color del icono al pasar el ratón */
+  transform: translate(1rem, 0); /* Transformación del icono al pasar el ratón */
+}
+button:hover .button-text {
+  color: #fff; /* Cambio de color del texto al pasar el ratón */
+}

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Slider from "react-slick";
 import { Card } from "../../Components/HomePage/Card"
 
-export function SimpleSlider({ data }) {
+export function SimpleSlider({ data, view=false }) {
     console.log(data)
     var settings = {
         dots: true,
@@ -32,6 +32,7 @@ export function SimpleSlider({ data }) {
                             nombre={d.nombre}
                             image={d.image}
                             descripcion={d.descripcion}
+                            view={view}
                         />
                     ))}
                 </Slider>

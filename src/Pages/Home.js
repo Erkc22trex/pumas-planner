@@ -67,6 +67,7 @@ export function Home() {
                 <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
                 <SimpleSlider
                   data={eventos}
+                  view={true}
                 />
                 {/* <div className="overflow-x-auto whitespace-nowrap flex">
                   {eventos?.map((card, index) => (

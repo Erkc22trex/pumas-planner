@@ -18,7 +18,7 @@ export default function DropdownBtn() {
                         <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" className="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 dark:text-white" type="button" onClick={toggleDropdown}>
                             <span className="sr-only">Open user menu</span>
                             <span className='text-center px-2'>
-                                {user?.name}                                
+                                {user?.name}
                             </span>
                             <img className="w-8 h-8 me-2 rounded-full" src={user?.picture || "logo512.png"} alt="user photo" />
                             {/* <svg className="w-2.5 h-2.5 ms-3" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -56,3 +56,4 @@ export default function DropdownBtn() {
         </>
     );
 }
+
