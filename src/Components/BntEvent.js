@@ -56,7 +56,7 @@ const BtnEvent = () => {
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Creación del Evento</h2>
         <button onClick={closeModal}>close</button>
 
-        <Form></Form>
+        <Form onClose={closeModal} /> {/* Pasar la función closeModal al componente Form */}
       </Modal>
     </>
   );
