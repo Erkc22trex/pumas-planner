@@ -5,7 +5,6 @@ import DropdownBtn from '../Button';
 import NotificationButton from './NotificationButton';
 import SearchBar from '../Search';
 import BtnEvent from '../BntEvent';
-import { Modal } from '../../Components/HomePage/Modal';
 
 export function Navbar() {
     const { isAuthenticated } = useAuth0();
