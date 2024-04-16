@@ -3,15 +3,13 @@ import Btn from "../Btn.tsx";
 import Inputset from "../Input.tsx";
 import Map from "./Map.js";
 import { useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
-import Eventos from '../../Models/Eventmodel.js';
 
-export default function Form({ onClose, evento={}, mode="ADD" }) {
+export default function Form({ onClose, evento = {}, mode = "ADD" }) {
     const { register, handleSubmit, control, reset, setValue } = useForm();
-    const [imagePreview, setImagePreview] = useState(null);
     const { user } = useAuth0();
+    const [imagePreview, setImagePreview] = useState(evento.image || null);
 
     const onSubmit = (data) => {
         if (mode === "ADD") {
@@ -21,15 +19,26 @@ export default function Form({ onClose, evento={}, mode="ADD" }) {
             })
                 .then(res => {
                     console.log(res.data);
+                    onClose();
                 })
                 .catch(err => {
                     console.log(err);
                 });
         } else if (mode === "EDIT") {
-            console.log("Editando ...")
+            axios.put(`http://localhost:5000/eventos/editar/${evento._id}`, {
+                ...data,
+                id_usr: user?.sub
+            })
+                .then(res => {
+                    console.log(res.data);
+                    onClose();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
 
-        reset()
+        reset();
     };
 
     useEffect(() => {
@@ -44,7 +53,6 @@ export default function Form({ onClose, evento={}, mode="ADD" }) {
 
     return (
         <div className='overflow-y-scroll h-96'>
-            {/* lg:w-2/4 md:w-1/4 */}
             <form onSubmit={handleSubmit(onSubmit)} className="bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
                 <Inputset
                     title={"Nombre"}
@@ -86,7 +94,7 @@ export default function Form({ onClose, evento={}, mode="ADD" }) {
                     ></textarea>
                 </div>
 
-                {<Map />}
+                <Map />
 
                 <div>
                     <label>Subir Imagen</label>
