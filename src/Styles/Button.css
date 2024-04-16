@@ -40,7 +40,7 @@ button.learn-more .circle {
   margin: 0;
   width: 3rem; /* Ancho del círculo */
   height: 3rem; /* Altura del círculo */
-  background: #c4b14b; /* Color de fondo del círculo */
+  background: #f5d104; /* Color de fondo del círculo */
   border-radius: 1.625rem; /* Borde redondeado del círculo */
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
@@ -78,7 +78,7 @@ button.learn-more .button-text {
   bottom: 0;
   padding: 0.7rem 0;
   margin: 0 0 0 1.85rem; /* Margen izquierdo del texto */
-  color: #c4b14b; /* Color del texto */
+  color: #f5d104; /* Color del texto */
   font-weight: 700; /* Peso de la fuente */
   line-height: 1.6; /* Altura de línea */
   text-align: center; /* Alineación del texto */
