@@ -6,6 +6,6 @@ const commentSchema = mongoose.Schema({
     }
 });
 
-const Comentarios = mongoose.model('Comentarios', commentSchema);
+const Comentario = mongoose.model('Comentario', commentSchema);
 
-module.exports = Comentarios;
+module.exports = Comentario;

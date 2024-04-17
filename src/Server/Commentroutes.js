@@ -4,10 +4,11 @@ const Comentario = require('../Models/Commentmodel');
 const app = express()
 
 // Ruta para crear un nuevo comentario (POST)
-router.post('/crear', async(req, res) => {
+router.post('/crear', async (req, res) => {
   try {
-    const { Comentario } = req.body; // Extraer el comentario del cuerpo de la solicitud
-    const comentario = await Comentarios.create({ Comentario }); // Crear el comentario con el modelo
+    const { Comentario: comentarioTexto } = req.body; // Extraer el comentario del cuerpo de la solicitud
+    const comentario = new Comentario({ Comentario: comentarioTexto }); // Crear una instancia del modelo con el comentario
+    await comentario.save(); // Guardar el comentario en la base de datos
     res.status(200).json(comentario);
   } catch (error) {
     console.log(error.message);
