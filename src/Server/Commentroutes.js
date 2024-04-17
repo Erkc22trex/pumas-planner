@@ -6,13 +6,13 @@ const app = express()
 // Ruta para crear un nuevo comentario (POST)
 router.post('/crear', async(req, res) => {
   try {
-    const comentario = await Comentario.create(req.body)
+    const { Comentario } = req.body; // Extraer el comentario del cuerpo de la solicitud
+    const comentario = await Comentarios.create({ Comentario }); // Crear el comentario con el modelo
     res.status(200).json(comentario);
-} catch (error) {
-    console.log(error.message)
-    res.status(500).json({message: error.message})
-}
-  //res.send("Evento creado con exito");
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // Ruta para filtrar un nuevo comentario (POST)

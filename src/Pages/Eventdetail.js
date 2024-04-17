@@ -1,17 +1,25 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom'; // Importar BrowserRouter
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Descrip = ({ onFormSubmit }) => {
   const textareaRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const description = textareaRef.current.value;
-    if (typeof onFormSubmit === 'function') {
-      onFormSubmit(description);
-    }
-    window.location.href = "./"; // Redirigir al home
+    const comentario = textareaRef.current.value; // Cambiar la variable a "comentario"
+    try {
+      const response = await axios.post("http://localhost:5000/eventos/comentarios/crear", { Comentario: comentario }); // Cambiar el nombre del campo a "Comentario"
+      console.log(response.data); // Puedes manejar la respuesta como desees
+      toast.success('¡Comentario enviado correctamente!');
+  } catch (error) {
+  console.error('Error al enviar comentario:', error);
+}
   };
 
   return (
@@ -53,11 +61,13 @@ const Descrip = ({ onFormSubmit }) => {
               <button
                 className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg my-3"
                 type="submit"
+                
               >
                 Enviar comentario
               </button>
             </div>
           </form>
+          <ToastContainer />
         </div>
       </div>
     </Router>
