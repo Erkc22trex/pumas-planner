@@ -13,14 +13,13 @@ const settings = {
     slidesToScroll: 3
 };
 
-export function SimpleSlider({ data, view=false, sliderKey }) {
-
+export function SimpleSlider({ data, view=false, sliderKey, onAgendarEvento }) {
     return (
         <div className='w-11/12 m-auto' key={`${sliderKey}_${uuidv4()}`}>
             <div className="mt-20" key={`${sliderKey}_${uuidv4()}`}>
                 <Slider {...settings}>
                     {data?.map((d) => (
-                            <Card 
+                        <Card 
                             key={`${d._id}_${uuidv4()}`}
                             _id={d._id}
                             nombre={d.nombre}
@@ -30,11 +29,13 @@ export function SimpleSlider({ data, view=false, sliderKey }) {
                             lugar={d.lugar}
                             fecha={d.fecha} 
                             view={view}
+                            onAgendarEvento={onAgendarEvento}
+                            // Asegúrate de pasar los datos del evento
+                            evento={d} 
                         />
                     ))}
                 </Slider>
             </div>
-
         </div>
     );
 }
