@@ -1,10 +1,25 @@
 const express = require("express");
 const router = express.Router();
+const participante = require('../Models/sendEmail');
+require('dotenv').config();
 
 // Ruta para añadir un nuevo participante (POST)
-router.post('/crear', (req, res) => {
-    res.send("Participante añadido");
-  });
+router.post('/invitar/:email', async(req, res) => {
+    try {
+      const { email } = req.params;
+        await participante({
+            //the client email 
+            to: email,
+            //sendGrid sender id 
+            from: 'pumas.planner24@gmail.com',
+            templateId: process.env.TEMPLATE_ID,
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
 
 // Ruta para traer un nuevo participante (GET)
 router.get('/filtrar/:filter', (req, res) => {

@@ -36,6 +36,10 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                 .catch(err => {
                     console.log(err);
                 });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                
         }
 
         reset();
