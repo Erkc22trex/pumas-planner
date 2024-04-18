@@ -10,10 +10,6 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view
     ReactDOM.render(<Descrip />, document.getElementById('root'));
   };
 
-  const handleButtonClick2 = () => {
-    console.log('Button 2 clicked');
-  };
-
   const handleCalendarButtonClick = () => {
     const startTime = new Date(fecha).toISOString().replace(/-|:|\.\d+/g, '');
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${nombre}&details=${descripcion}&location=${lugar}&dates=${startTime}/${startTime}`;
@@ -84,9 +80,7 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view
           </div>
         )}
       </div>
-  
-      {/* Botón Detalles */}
-      <div className="flex justify-center"> {/* Centrado */}
+      <div className="flex justify-center">
         <button className="learn-more" onClick={handleButtonClick1}>
           <span className="circle" aria-hidden="true">
             <span className="icon arrow"></span>
