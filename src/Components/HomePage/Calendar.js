@@ -72,7 +72,6 @@ function Calendar() {
                 <div className="max-h-[96vh] overflow-y-auto scrollbar">
                     {misEventos.map((evento, index) => (
                         <div key={evento._id} className="mb-4 bg-sky-600 rounded p-4">
-                            {index !== 0 && <hr className="border-t border-white border-solid my-4 w-full" />}
                             <div className="text-white">
                                 <p className="font-semibold">Evento: {evento.nombre}</p>
                                 <p>Fecha: {new Date(evento.fecha).toLocaleDateString()}</p>
