@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import Eventos from '../Models/Eventmodel';
 
 export default function SearchBar() { 
 
@@ -14,11 +16,11 @@ const searcher = (e) => {
 let results = []
 if(!search)
 {
-	results = users   //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
+	results = Eventos   //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
 	
 }else{
-	results = users.filtrer( (dato) => //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
-	dato.name.toLowerCase().includes(searchs.tolocaleLowerCase()) //.name es por la columna de la tabla a filtrar o nombre del evento
+	results = Eventos.filtrer( (dato) => //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
+	dato.name.toLowerCase().includes(search.tolocaleLowerCase()) //.name es por la columna de la tabla a filtrar o nombre del evento
 	)
 }
 
