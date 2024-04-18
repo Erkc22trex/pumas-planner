@@ -39,18 +39,20 @@ export function Home() {
 
     // Función para agregar un evento a la lista de eventos agendados
     const onAgendarEvento = (evento) => {
-        const eventosActualizados = [...eventosAgendados, evento];
-        setEventosAgendados(eventosActualizados);
+        setEventosAgendados(prevEventos => [...prevEventos, evento]); // Agrega solo el evento seleccionado
         // Guardar eventos en el almacenamiento local
-        localStorage.setItem('eventosAgendados', JSON.stringify(eventosActualizados));
-
-        // Forzar la re-renderización de la interfaz
+        localStorage.setItem('eventosAgendados', JSON.stringify([...eventosAgendados, evento]));
         setTimeout(() => {
             window.location.reload();
         }, 100);
     };
     
-
+    const onDesagendarEvento = (eventoId) => {
+    const eventosActualizados = eventosAgendados.filter(evento => evento._id !== eventoId);
+    setEventosAgendados(eventosActualizados);
+    // Guardar eventos en el almacenamiento local
+    localStorage.setItem('eventosAgendados', JSON.stringify(eventosActualizados));
+};
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />

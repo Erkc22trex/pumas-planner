@@ -21,8 +21,9 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view
   };
 
   const handleAgregarEvento = () => {
-    onAgendarEvento(_id); // Llama a la función onAgendarEvento con el ID del evento
+    onAgendarEvento(evento); // Pasa el objeto de evento completo
 };
+
 
   
   const { isAuthenticated, user } = useAuth0();

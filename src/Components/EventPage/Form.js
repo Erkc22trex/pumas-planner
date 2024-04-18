@@ -24,9 +24,6 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                 .catch(err => {
                     console.log(err);
                 });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 100);
         } else if (mode === "EDIT") {
             axios.put(`http://localhost:5000/eventos/editar/${evento._id}`, {
                 ...data,
