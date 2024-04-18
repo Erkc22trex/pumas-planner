@@ -43,8 +43,6 @@ const Map = () => {
             </LoadScript>
             {markerPosition && (
                 <div>
-                    <p>Latitud: {markerPosition.lat}</p>
-                    <p>Longitud: {markerPosition.lng}</p>
                     <p>Dirección: {address}</p>
                 </div>
             )}
