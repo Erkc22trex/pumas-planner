@@ -25,6 +25,7 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                     console.log(err);
                 });
         } else if (mode === "EDIT") {
+            console.log(data);
             axios.put(`http://localhost:5000/eventos/editar/${evento._id}`, {
                 ...data,
                 id_usr: user?.sub
@@ -36,28 +37,31 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                 .catch(err => {
                     console.log(err);
                 });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 100);
-                
         }
-
         reset();
     };
 
     useEffect(() => {
+        
         if (mode === "EDIT") {
             setValue("nombre", evento.nombre);
-            setValue("fecha", evento.fecha);
+            const fecha = new Date(evento.fecha);
+            if( ! isNaN(fecha.getTime()) ) {
+                console.log(fecha.toISOString().split("T")[0])
+                setValue("fecha", fecha.toISOString().split("T")[0]);
+            }
             setValue("hora", evento.hora);
             setValue("lugar", evento.lugar);
             setValue("descripcion", evento.descripcion);
+            setImagePreview(evento.image);
         }
     }, [evento, setValue]);
 
     return (
         <div className='overflow-y-scroll h-96'>
-            <form onSubmit={handleSubmit(onSubmit)} className="bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
+            <form 
+                onSubmit={handleSubmit(onSubmit)} 
+                className="bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
                 <Inputset
                     title={"Nombre"}
                     type="text"

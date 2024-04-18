@@ -71,6 +71,7 @@ router.put('/editar/:id', async (req, res) => {
   // Lógica para editar un evento por su ID
   try {
     const { id } = req.params;
+
     const evento = await Evento.findByIdAndUpdate(id, req.body);
     //No se puede encontrar el producto en la base de datos
     if (!evento) {
