@@ -36,9 +36,6 @@ function Calendar() {
             .catch(err => {
                 console.log(err);
             });
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
     };
 
     // Función para abrir el formulario de edición
