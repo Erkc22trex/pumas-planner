@@ -45,7 +45,7 @@
     left: 50%; /* Ajustar la posición horizontal */
     background: #FFF;
     border-radius: 12px;
-    padding: 20px; /* Agregar márgenes internos */
+    padding: 6px; /* Agregar márgenes internos */
     transform: translate(-50%, -50px); /* Opcional: ajustar la posición vertical con 'translate' */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
 }
