@@ -27,13 +27,13 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, onAg
   const { isAuthenticated } = useAuth0();
 
   return (
-    <div key={_id} className="bg-white h-[400px] text-black rounded-xl">
+    <div key={_id} className="bg-sky-600 h-[400px] text-black rounded-xl">
       <div className='h-56 bg-indigo-500 flex justify-center items-center rounded-t-xl'>
         <img src={image} alt="" className="h-56 w-full rounded-t-xl" />
       </div>
   
       <div className="flex flex-col items-center justify-center gap-4 p-4 mb-auto">
-        <p className="text-l text-blue-600 font-semibold">{nombre}</p>
+        <p className="text-l text-white font-semibold">{nombre}</p>
   
         {isAuthenticated && (
           <div className='grid xl:flex gap-3 justify-center items-center'>
@@ -81,7 +81,7 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, onAg
               </button>
             )}
   
-            <button className="rounded-lg relative w-36 h-10 cursor-pointer flex items-center border bg-sky-800 bg-sky-800 group hover:bg-sky-800 active:bg-sky-800 active:bg-sky-800" onClick={handleCalendarButtonClick}>
+            <button className="rounded-lg relative w-36 h-10 cursor-pointer flex items-center border  bg-sky-800 group hover:bg-sky-900  active:bg-sky-700" onClick={handleCalendarButtonClick}>
               <span className="text-gray-200 font-semibold ml-8 transform group-hover:hidden transition-all duration-300">Calendario</span>
               <span className="absolute right-0 h-full w-10 rounded-lg bg-sky-800 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
                 <svg

@@ -5,6 +5,7 @@ import Map from "./Map.js";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
+import Confetti from "canvas-confetti"
 
 export default function Form({ onClose, evento = {}, mode = "ADD" }) {
     const { register, handleSubmit, control, reset, setValue } = useForm();
@@ -19,6 +20,7 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
             })
                 .then(res => {
                     console.log(res.data);
+                    Confetti();
                     onClose();
                 })
                 .catch(err => {
@@ -138,7 +140,7 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                     />
                 </div>
                 <div className="flex justify-between">
-                    <Btn type="submit">Guardar</Btn>
+                    <Btn type="submit">{mode === "ADD" ? "Guardar" : "Actualizar"}</Btn>
                     <Btn type="button" onClick={onClose}>Salir</Btn>
                 </div>
             </form>
