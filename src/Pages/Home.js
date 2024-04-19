@@ -32,9 +32,9 @@ export function Home() {
   const onAgendarEvento = (evento) => {
     setEventosAgendados(prevEventos => [...prevEventos, evento]);
     localStorage.setItem('eventosAgendados', JSON.stringify([...eventosAgendados, evento]));
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    //setTimeout(() => {
+      //window.location.reload();
+    //}, 100);
   };
 
   const onDesagendarEvento = (eventoId) => {
