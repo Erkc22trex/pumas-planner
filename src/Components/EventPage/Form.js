@@ -104,7 +104,12 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                     label="fecha"
                     register={register}
                     required={true}
+                    placeholder="Introduce fecha"
+                    aria-invalid={errors.fecha ? "true" : "false"}
                 />
+                {errors.fecha?.type === "required" && (
+                    <p className='text-red-500' role="alert">La fecha es obligatorio</p>
+                )}
                 <Inputset
                     title="Horario"
                     type="time"
@@ -112,7 +117,12 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                     label="hora"
                     register={register}
                     required={true}
+                    placeholder="Introduce hora"
+                    aria-invalid={errors.hora ? "true" : "false"}
                 />
+                {errors.hora?.type === "required" && (
+                    <p className='text-red-500' role="alert">La hora es obligatorio</p>
+                )}
                 <Inputset
                     title={"Lugar"}
                     type="text"
@@ -120,8 +130,12 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                     label="lugar"
                     register={register}
                     required={true}
-                    placeholder="Lugar"
+                    placeholder="Introduce lugar"
+                    aria-invalid={errors.lugar ? "true" : "false"}
                 />
+                {errors.lugar?.type === "required" && (
+                    <p className='text-red-500' role="alert">El lugar es obligatorio</p>
+                )}
                 <div className="my-4">
                     <label htmlFor="descripcion" className="text-white">Descripción</label>
                     <textarea

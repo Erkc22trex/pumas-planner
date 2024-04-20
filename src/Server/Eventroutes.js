@@ -48,7 +48,6 @@ router.put('/registrar/:eventoId', async (req, res) => {
     const { userId } = req.body;
 
     try {
-        console.log(eventoId, userId);
         // Verificar si el evento existe
         const evento = await Evento.findById({
             _id: eventoId
@@ -82,7 +81,6 @@ router.put('/registrar/:eventoId', async (req, res) => {
 router.get('/filtrar/:id', async (req, res) => {
     try {
         const { id } = req.params
-        console.log("Filtrar", id)
         const events1 = await Evento.find({ id_usr: id }) // eventos Creados Por Mi
         const events2 = await Evento.find({ usrs_registrados: { $in: [id] } }); // Eventos en los que estás registrado
 
@@ -97,7 +95,6 @@ router.get('/filtrar/:id', async (req, res) => {
 router.get('/filtrarMisEventos/:id', async (req, res) => {
     try {
         const { id } = req.params
-        console.log("Filtrar", id)
         const events = await Evento.find({ id_usr: id }) // eventos Creados Por Mi
         res.status(200).json(events);
     } catch (error) {
@@ -110,14 +107,9 @@ router.get('/filtrarMisEventos/:id', async (req, res) => {
 router.get('/filtrarNo/:id', async (req, res) => {
     try {
         const { id } = req.params
-        console.log("Filtrar no ", id)
-        const events = await Evento.find({
-            $and: [
-                { id_usr: { $ne: id } }, // Eventos cuyo id_usr no es el tuyo
-                { usrs_registrados: { $nin: [id] } } // Eventos en los que no estás registrado
-            ]
-        }); // Eventos en los que no estás registrado
-        res.status(200).json(events);
+        const events1 = await Evento.find({ id_usr: { $ne: id } })
+        const events2 = await Evento.find({ usrs_registrados: { $nin: [id] } });
+        res.status(200).json([...events1, ...events2]);
     } catch (error) {
         res.status(500).json({
             message: "Error"
@@ -167,15 +159,32 @@ router.put('/editar/:id', async (req, res) => {
         res.status(500).json({ message: error, message })
     }
 });
-router.delete('/eliminar/:id', async (req, res) => {
+router.put('/eliminar/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
-        const evento = await Evento.findByIdAndDelete(id);
+        const { usr_id } = req.body;
+        console.log(usr_id)
+        // const evento = await Evento.findByIdAndDelete(id);
+        const evento = await Evento.findById(id);
         if (!evento) {
-            return res.status(404).json({ message: `No se puede encontrar ningun evento con el ID ${id}` });
+            return res.status(404).json({ message: `No se puede encontrar ningún evento con el ID ${id}` });
         }
-        res.status(200).json(evento);
+
+        // Verificar si el usr_id coincide con el id del evento
+        if (evento.id_usr === usr_id) {
+            // Si coincide, eliminar completamente el evento
+            await Evento.findByIdAndDelete(id);
+            return res.status(200).json({ message: `Evento con ID ${id} eliminado correctamente` });
+        } else {
+            // Si no coincide, eliminar solo el usr_id del arreglo usrs_registrados
+            const index = evento.usrs_registrados.indexOf(usr_id);
+            if (index !== -1) {
+                evento.usrs_registrados.splice(index, 1);
+                await evento.save();
+                return res.status(200).json({ message: `Usuario con ID ${usr_id} eliminado del evento ${id}` });
+            }
+            return res.status(200).json({ message: `El usuario con ID ${usr_id} no está registrado en el evento ${id}` });
+        }
     } catch (error) {
         res.status(500).json({ message: error, message })
     }

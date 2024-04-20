@@ -81,10 +81,12 @@ export function Home() {
 
     const onDesagendarEvento = (eventoId) => {
         console.log(eventoId)
-        axios.delete(`http://localhost:5000/eventos/eliminar/${eventoId}`)
+        const usr_id = user?.sub
+        axios.put(`http://localhost:5000/eventos/eliminar/${eventoId}`, { usr_id })
             .then(res => {
                 console.log(res.data);
                 getEvents();
+                getMisEventos();
                 getMisEventosAge();
             })
             .catch(err => {
@@ -133,7 +135,6 @@ export function Home() {
                         />
                     </div>
                 </div>
-                <Footer />
             </div>
         </div>
     );
