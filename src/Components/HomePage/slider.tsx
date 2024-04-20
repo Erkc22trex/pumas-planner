@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { Card } from "../../Components/HomePage/Card";
+import { Card } from "./Card";
 import { v4 as uuidv4 } from 'uuid';
 
 const settings = {
@@ -11,16 +11,22 @@ const settings = {
     slidesToScroll: 3
 };
 
-export function SimpleSlider({ data, view=false, sliderKey, onAgendarEvento, onDesagendarEvento, eventosAgendados=[], isAgendados=false }) {
-    const handleAgregarEvento = (eventoId) => {
-        const evento = data.find(e => e._id === eventoId);
-        if (evento) {
-            onAgendarEvento(evento);
-        }
+interface Props {
+    data: any[];
+    view: boolean;
+    sliderKey: string;
+    onAgendarEvento?: (eventoId: string) => void;
+    onDesagendarEvento?: (eventoId: string) => void
+}
+
+export function SimpleSlider({ data, view=false, sliderKey, onAgendarEvento, onDesagendarEvento }: Props) {
+
+    const handleAgregarEvento = (eventoId: string) => {
+        onAgendarEvento && onAgendarEvento(eventoId);
     };
 
-    const handleDesagendarEvento = (eventoId) => {
-        onDesagendarEvento(eventoId);
+    const handleDesagendarEvento = (eventoId: string) => {
+        onDesagendarEvento && onDesagendarEvento(eventoId);
     };
 
     return (
@@ -40,9 +46,6 @@ export function SimpleSlider({ data, view=false, sliderKey, onAgendarEvento, onD
                             view={view}
                             onAgendarEvento={handleAgregarEvento}
                             onDesagendarEvento={handleDesagendarEvento}
-                            evento={d}
-                            isAgendado={eventosAgendados.some(evento => evento._id === d._id)} 
-                            isAgendados={isAgendados} 
                         />
                     ))}
                 </Slider>

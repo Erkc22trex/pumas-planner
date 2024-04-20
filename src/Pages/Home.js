@@ -1,88 +1,122 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Navbar } from '../Components/HomePage/Navbar';
 import { Footer } from '../Components/HomePage/Footer';
 import { FormContacto } from '../Components/HomePage/form-contacto';
 import Calendar from '../Components/HomePage/Calendar';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
-import { SimpleSlider } from '../Components/HomePage/slider';
+import { SimpleSlider } from '../Components/HomePage/slider.tsx';
 
 export function Home() {
-  const { isAuthenticated } = useAuth0();
-  const [eventos, setEventos] = useState([]);
-  const [eventosAgendados, setEventosAgendados] = useState([]);
+    const { isAuthenticated, user } = useAuth0();
+    const [eventosGenerales, setEventosGenerales] = useState([]);
+    const [misEventosAgen, setMisEventosAgen] = useState([]);
+    // const [misEventos, setMisEventos] = useState([]);
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/eventos/alls')
-      .then(res => {
-        setEventos(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+    const getEvents = useCallback(() => {
+        if (isAuthenticated && user?.sub) {
+            axios.get(`http://localhost:5000/eventos/filtrarNo/${user?.sub}`)
+                .then(res => {
+                    console.log(res.data);
+                    setEventosGenerales(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            axios.get('http://localhost:5000/eventos/alls')
+                .then(res => {                    
+                    console.log(res.data)
+                    setEventosGenerales(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }, [isAuthenticated, user?.sub]);
 
-  useEffect(() => {
-    const eventosGuardados = JSON.parse(localStorage.getItem('eventosAgendados'));
-    if (eventosGuardados) {
-      setEventosAgendados(eventosGuardados);
-    }
-  }, []);
+    const getMisEventos = useCallback(() => {
+        axios.get(`http://localhost:5000/eventos/filtrar/${user?.sub}`)
+            .then(res => {
+                setMisEventosAgen(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [user?.sub]);
 
-  const onAgendarEvento = (evento) => {
-    setEventosAgendados(prevEventos => [...prevEventos, evento]);
-    localStorage.setItem('eventosAgendados', JSON.stringify([...eventosAgendados, evento]));
-    //setTimeout(() => {
-      //window.location.reload();
-    //}, 100);
-  };
+    useEffect(() => {
+        if (isAuthenticated) {
+            getMisEventos();
+            getEvents();
+        } else {
+            getEvents();
+        }
+    }, [isAuthenticated, getMisEventos, getEvents]);
 
-  const onDesagendarEvento = (eventoId) => {
-    const eventosActualizados = eventosAgendados.filter(evento => evento._id !== eventoId);
-    setEventosAgendados(eventosActualizados);
-    localStorage.setItem('eventosAgendados', JSON.stringify(eventosActualizados));
-  };
+    const onRegistrarAEvento = (eventoId) => {
+        const userId = user?.sub
+        axios.put(`http://localhost:5000/eventos/registrar/${eventoId}`, { userId })
+            .then(resp => {
+                getMisEventos();
+                getEvents();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" : "bgCustom"}>
-        <div className="container mx-auto px-5 py-5 text-gray-600 body-font flex flex-grow">
-          <div className={isAuthenticated ? "w-full lg:w-3/4" : "w-full"}>
-            {isAuthenticated && (
-              <div className='py-4'>
-                <h1 className="text-xl font-bold text-white mb-4">MIS EVENTOS AGENDADOS</h1>
-                <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
-                <SimpleSlider
-                  data={eventosAgendados}
-                  view={true}
-                  sliderKey={"EVENTOS_AGENDADOS"}
-                  onAgendarEvento={onAgendarEvento}
-                  onDesagendarEvento={onDesagendarEvento}
-                  isAgendados={true} // Indica que estos son eventos agendados
-                />
-              </div>
-            )}
-            <div className='py-4'>
-              <h1 className="text-xl font-bold text-white mb-4">EVENTOS GENERALES</h1>
-              <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
-              <SimpleSlider
-                data={eventos}
-                view={true}
-                sliderKey={"EVENTOS_GENERALES"}
-                onAgendarEvento={onAgendarEvento}
-                onDesagendarEvento={onDesagendarEvento}
-                isAgendados={false} // Indica que estos son eventos generales
-              />
+    const onDesagendarEvento = (eventoId) => {
+        console.log(eventoId)
+        axios.delete(`http://localhost:5000/eventos/eliminar/${eventoId}`)
+            .then(res => {
+                console.log(res.data);
+                getEvents();
+                getMisEventos();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    return (
+        <div className="flex flex-col min-h-screen">
+            <Navbar
+                refreshEvents={getMisEventos}
+                refreshEventsGenerales={getEvents}
+            />
+            <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" : "bgCustom"}>
+                <div className="container mx-auto px-5 py-5 text-gray-600 body-font flex flex-grow">
+                    <div className={isAuthenticated ? "w-full lg:w-3/4" : "w-full"}>
+                        {isAuthenticated && (
+                            <div className='py-4'>
+                                <h1 className="text-xl font-bold text-white mb-4">MIS EVENTOS AGENDADOS</h1>
+                                <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
+                                <SimpleSlider
+                                    data={misEventosAgen}
+                                    view={true}
+                                    sliderKey={"EVENTOS_AGENDADOS"}
+                                    onDesagendarEvento={onDesagendarEvento}
+                                />
+                            </div>
+                        )}
+                        <div className='py-4'>
+                            <h1 className="text-xl font-bold text-white mb-4">EVENTOS GENERALES</h1>
+                            <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
+                            <SimpleSlider
+                                data={eventosGenerales}
+                                sliderKey={"EVENTOS_GENERALES"}
+                                onAgendarEvento={onRegistrarAEvento}
+                            />
+                        </div>
+                        {!isAuthenticated && (<FormContacto />)}
+                    </div>
+                    <div className="w-full lg:w-1/4">
+                        <Calendar />
+                    </div>
+                </div>
+                <Footer />
             </div>
-            {!isAuthenticated && (<FormContacto />)}
-          </div>
-          <div className="w-full lg:w-1/4">
-            <Calendar />
-          </div>
         </div>
-        <Footer />
-      </div>
-    </div>
-  );
+    );
 }

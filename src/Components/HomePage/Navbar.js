@@ -6,8 +6,16 @@ import NotificationButton from './NotificationButton';
 import SearchBar from '../Search';
 import BtnEvent from '../BntEvent';
 
-export function Navbar() {
+export function Navbar({ refreshEvents, refreshEventsGenerales }) {
     const { isAuthenticated } = useAuth0();
+
+    const getEvents = () => {
+        refreshEvents();
+    };
+
+    const getEventsGen = () => {
+        refreshEventsGenerales();
+    };
 
     return (
         <header className="text-gray-900 bg-amber-400 body-font sticky top-0 z-50"> {/* z-50 establece un z-index alto */}
@@ -34,7 +42,10 @@ export function Navbar() {
                             <>
                                 <NotificationButton />
                                 <div className="h-12 border-2 border-white"></div>
-                                <BtnEvent />
+                                <BtnEvent
+                                    refreshEvents={getEvents}
+                                    refreshEventsGenerales={getEventsGen}
+                                />
                             </>
                         )
                     }

@@ -7,10 +7,20 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 import Confetti from "canvas-confetti"
 
-export default function Form({ onClose, evento = {}, mode = "ADD" }) {
-    const { register, handleSubmit, control, reset, setValue } = useForm();
+export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents, refreshEventsGenerales }) {
+    const { register, handleSubmit, control, reset, setValue, formState: { errors } } = useForm();
     const { user } = useAuth0();
     const [imagePreview, setImagePreview] = useState(evento.image || null);
+
+    const getEvents = () => {
+        console.log("Se ejecuta")
+        refreshEvents();
+    };
+
+    const getEventsGen = () => {
+        console.log("Se ejecuta")
+        refreshEventsGenerales();
+    };
 
     const onSubmit = (data) => {
         if (mode === "ADD") {
@@ -20,6 +30,9 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
             })
                 .then(res => {
                     console.log(res.data);
+                    getEvents();
+                    getEventsGen();
+                    setImagePreview(null);
                     Confetti();
                     onClose();
                 })
@@ -44,11 +57,11 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
     };
 
     useEffect(() => {
-        
+
         if (mode === "EDIT") {
             setValue("nombre", evento.nombre);
             const fecha = new Date(evento.fecha);
-            if( ! isNaN(fecha.getTime()) ) {
+            if (!isNaN(fecha.getTime())) {
                 console.log(fecha.toISOString().split("T")[0])
                 setValue("fecha", fecha.toISOString().split("T")[0]);
             }
@@ -57,12 +70,12 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
             setValue("descripcion", evento.descripcion);
             setImagePreview(evento.image);
         }
-    }, [evento, setValue]);
+    }, [evento, setValue, mode]);
 
     return (
         <div className='overflow-y-scroll h-96'>
-            <form 
-                onSubmit={handleSubmit(onSubmit)} 
+            <form
+                onSubmit={handleSubmit(onSubmit)}
                 className="bg-sky-700 flex flex-col p-3 w-full rounded-lg md:py-8 mt-8 md:mt-0">
                 <Inputset
                     title={"Nombre"}
@@ -70,14 +83,21 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                     id="nombre"
                     label="nombre"
                     register={register}
+                    required={true}
                     placeholder="Introduce nombre"
+                    aria-invalid={errors.nombre ? "true" : "false"}
                 />
+                {errors.nombre?.type === "required" && (
+                    <p className='text-red-500' role="alert">El nombre es obligatorio</p>
+                )}
+
                 <Inputset
                     title={"Fecha"}
                     type="Date"
                     id="fecha"
                     label="fecha"
                     register={register}
+                    required={true}
                 />
                 <Inputset
                     title="Horario"
@@ -85,6 +105,7 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                     id="hora"
                     label="hora"
                     register={register}
+                    required={true}
                 />
                 <Inputset
                     title={"Lugar"}
@@ -92,13 +113,14 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                     id="lugar"
                     label="lugar"
                     register={register}
+                    required={true}
                     placeholder="Lugar"
                 />
                 <div className="my-4">
                     <label htmlFor="descripcion" className="text-white">Descripción</label>
                     <textarea
                         id="descripcion"
-                        {...register("descripcion")}
+                        {...register("descripcion", { required: true })}
                         rows="4"
                         className="w-full p-2 mt-1 bg-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
                     ></textarea>
@@ -141,7 +163,10 @@ export default function Form({ onClose, evento = {}, mode = "ADD" }) {
                 </div>
                 <div className="flex justify-between">
                     <Btn type="submit">{mode === "ADD" ? "Guardar" : "Actualizar"}</Btn>
-                    <Btn type="button" onClick={onClose}>Salir</Btn>
+                    <Btn type="button" onClick={() => {
+                        onClose()
+                        reset()
+                    }}>Salir</Btn>
                 </div>
             </form>
         </div>

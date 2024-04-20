@@ -15,7 +15,7 @@ function Calendar() {
 
     useEffect(() => {
         if (isAuthenticated && user) {
-            axios.get(`http://localhost:5000/eventos/filtrar/${user.sub}`)
+            axios.get(`http://localhost:5000/eventos/filtrarMisEventos/${user.sub}`)
                 .then(res => {
                     setMisEventos(res.data);
                 })

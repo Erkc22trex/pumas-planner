@@ -58,6 +58,10 @@ const eventoSchema = mongoose.Schema(
         },
         id_usr: {
             type: String,
+        },
+        usrs_registrados: {
+            type: Array,
+            default: []
         }
     },
     {
