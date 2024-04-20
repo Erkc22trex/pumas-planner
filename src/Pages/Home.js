@@ -11,7 +11,17 @@ export function Home() {
     const { isAuthenticated, user } = useAuth0();
     const [eventosGenerales, setEventosGenerales] = useState([]);
     const [misEventosAgen, setMisEventosAgen] = useState([]);
-    // const [misEventos, setMisEventos] = useState([]);
+    const [misEventos, setMisEventos] = useState([]);
+
+    const getMisEventos = useCallback(() => {
+        axios.get(`http://localhost:5000/eventos/filtrarMisEventos/${user?.sub}`)
+        .then(res => {
+            setMisEventos(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }, [user?.sub])
 
     const getEvents = useCallback(() => {
         if (isAuthenticated && user?.sub) {
@@ -35,7 +45,7 @@ export function Home() {
         }
     }, [isAuthenticated, user?.sub]);
 
-    const getMisEventos = useCallback(() => {
+    const getMisEventosAge = useCallback(() => {
         axios.get(`http://localhost:5000/eventos/filtrar/${user?.sub}`)
             .then(res => {
                 setMisEventosAgen(res.data);
@@ -47,18 +57,19 @@ export function Home() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            getMisEventos();
+            getMisEventosAge();
             getEvents();
+            getMisEventos();
         } else {
             getEvents();
         }
-    }, [isAuthenticated, getMisEventos, getEvents]);
+    }, [isAuthenticated, getMisEventosAge, getEvents, getMisEventos]);
 
     const onRegistrarAEvento = (eventoId) => {
         const userId = user?.sub
         axios.put(`http://localhost:5000/eventos/registrar/${eventoId}`, { userId })
             .then(resp => {
-                getMisEventos();
+                getMisEventosAge();
                 getEvents();
             })
             .catch(err => {
@@ -72,7 +83,7 @@ export function Home() {
             .then(res => {
                 console.log(res.data);
                 getEvents();
-                getMisEventos();
+                getMisEventosAge();
             })
             .catch(err => {
                 console.log(err);
@@ -82,7 +93,7 @@ export function Home() {
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar
-                refreshEvents={getMisEventos}
+                refreshEvents={getMisEventosAge}
                 refreshEventsGenerales={getEvents}
             />
             <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" : "bgCustom"}>
@@ -102,7 +113,7 @@ export function Home() {
                         )}
                         <div className='py-4'>
                             <h1 className="text-xl font-bold text-white mb-4">EVENTOS GENERALES</h1>
-                            <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4" />
+                            <hr className="border-t border-l border-r border-white border-solid my-2 w-3/4"/>
                             <SimpleSlider
                                 data={eventosGenerales}
                                 sliderKey={"EVENTOS_GENERALES"}
@@ -112,7 +123,11 @@ export function Home() {
                         {!isAuthenticated && (<FormContacto />)}
                     </div>
                     <div className="w-full lg:w-1/4">
-                        <Calendar />
+                        <Calendar
+                            getMisEventos={getMisEventos}
+                            getMisEventosAge={getMisEventosAge}
+                            misEventos={misEventos}
+                        />
                     </div>
                 </div>
                 <Footer />

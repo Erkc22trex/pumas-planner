@@ -77,14 +77,12 @@ router.get('/filtrarNo/:id', async (req, res) => {
     try {
         const { id } = req.params
         console.log("Filtrar no ", id)
-        // const events = await Evento.find({ usrs_registrados: { $nin: [id] } }); // Eventos en los que no estás registrado
-        const events = await Evento.find({ 
+        const events = await Evento.find({
             $and: [
                 { id_usr: { $ne: id } }, // Eventos cuyo id_usr no es el tuyo
                 { usrs_registrados: { $nin: [id] } } // Eventos en los que no estás registrado
             ]
-         }); // Eventos en los que no estás registrado
-
+        }); // Eventos en los que no estás registrado
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({
@@ -93,15 +91,31 @@ router.get('/filtrarNo/:id', async (req, res) => {
     }
 });
 
-// router.get('/filtrar/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const evento = await Evento.findById(id);
-//     res.status(200).json(evento);
-//   } catch (error) {
-//     res.status(500).json({ message: error, message })
-//   }
-// });
+router.get('/buscar', async (req, res) => {
+    try {
+        const { nombre } = req.query; // Cambiamos a req.query para obtener el parámetro de consulta 'nombre'
+        let eventos;
+
+        if (nombre) {
+            // Si se proporciona un nombre en la consulta, buscar eventos por nombre
+            eventos = await Evento.find({ nombre: { $regex: new RegExp(nombre, 'i') } });
+        } else {
+            // Si no se proporciona un nombre, obtener todos los eventos
+            eventos = await Evento.find();
+        }
+
+        if (eventos.length === 0) {
+            // Si no se encuentran eventos, enviar una respuesta indicando que no se encontraron resultados
+            return res.status(404).json({ message: "No se encontraron eventos para el nombre proporcionado" });
+        }
+
+        // Enviar los eventos encontrados en formato JSON
+        res.status(200).json(eventos);
+    } catch (error) {
+        console.error('Error al obtener eventos:', error);
+        res.status(500).json({ message: "Error al obtener eventos" });
+    }
+});
 
 // Ruta para editar un comentario existente (PUT/PATCH)
 router.put('/editar/:id', async (req, res) => {

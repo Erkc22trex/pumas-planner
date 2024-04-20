@@ -5,33 +5,19 @@ import Form from '../EventPage/Form';
 import "../../Styles/DeleteButton.css"
 import { Modal } from '../../Components/HomePage/Modal';
 
-function Calendar() {
-    const [misEventos, setMisEventos] = useState([]);
+function Calendar({ getMisEventos, getMisEventosAge, misEventos }) {
     const [EventoEditar, setEventoEditar] = useState({});
-    const { isAuthenticated, user } = useAuth0();
+    const { isAuthenticated } = useAuth0();
 
     const [isOpen, setIsOpen] = useState(false)
     const toggleOpen = () => setIsOpen(!isOpen)
-
-    useEffect(() => {
-        if (isAuthenticated && user) {
-            axios.get(`http://localhost:5000/eventos/filtrarMisEventos/${user.sub}`)
-                .then(res => {
-                    setMisEventos(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    }, [isAuthenticated, user]);
 
     // Función para eliminar un evento
     const deleteEvent = (eventId) => {
         axios.delete(`http://localhost:5000/eventos/eliminar/${eventId}`)
             .then(res => {
-                console.log(res.data);
-                // Si la eliminación en la base de datos fue exitosa, actualiza la lista de eventos
-                setMisEventos(misEventos.filter(evento => evento._id !== eventId));
+                getMisEventos();
+                getMisEventosAge();
             })
             .catch(err => {
                 console.log(err);
@@ -42,10 +28,6 @@ function Calendar() {
     const EditEvent = (eventId) => {
         console.log(eventId);
 
-        const evento = misEventos.filter(event => event._id === eventId);
-        console.log(evento);
-        setEventoEditar(evento[0]);
-        
     };
 
     if (!isAuthenticated) {

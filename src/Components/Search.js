@@ -10,6 +10,7 @@ export default function SearchBar() {
 
   const handleSearch = async (e) => {
     const query = e.target.value;
+    console.log(query);
     setSearch(query);
     try {
       const response = await axios.get(`http://localhost:5000/eventos/buscar?nombre=${query}`);
