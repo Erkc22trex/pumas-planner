@@ -9,7 +9,6 @@ app.use(express.json())
 // Ruta para traer todos los eventos (GET)
 router.get('/alls', async (req, res) => {
     try {
-        console.log("ALLS")
         const evento = await Evento.find({});
         res.status(200).json(evento);
     } catch (error) {
@@ -41,6 +40,41 @@ router.post('/crear', async (req, res) => {
     } catch (error) {
         console.log(error.message)
         res.status(500).json({ message: error.message })
+    }
+});
+
+router.put('/registrar/:eventoId', async (req, res) => {
+    const { eventoId } = req.params;
+    const { userId } = req.body;
+
+    try {
+        console.log(eventoId, userId);
+        // Verificar si el evento existe
+        const evento = await Evento.findById({
+            _id: eventoId
+        });
+        if (!evento) {
+            return res.status(200).json({ message: 'Evento no encontrado' });
+        }
+
+        // Verificar si el usuario ya está registrado en el evento
+        if (evento.usrs_registrados.includes(userId)) {
+            return res.status(200).json({ message: 'El usuario ya está registrado en este evento' });
+        }
+
+        // verificar que el usuario no sea el creador del evento
+        if (evento.id_usr === userId) {
+            return res.status(200).json({ message: 'No puedes registrar a ti mismo' });
+        }
+
+        // Agregar el usuario al arreglo de usrs_registrados
+        evento.usrs_registrados.push(userId);
+        await evento.save();
+
+        res.status(200).json({ message: 'Usuario agregado al evento correctamente' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
 });
 

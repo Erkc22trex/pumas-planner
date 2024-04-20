@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Form from "../Components/EventPage/Form";
 import { Modal } from '../Components/HomePage/Modal'
 
-const BtnEvent = ({ refreshEvents, refreshEventsGenerales }) => {
+const BtnEvent = ({ refreshEvents, refreshMisEventos, refreshEventsGenerales }) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const toggleOpen = () => setIsOpen(!isOpen)
@@ -30,6 +30,7 @@ const BtnEvent = ({ refreshEvents, refreshEventsGenerales }) => {
                     <Form
                         onClose={toggleOpen}
                         refreshEvents={getEvents}
+                        refreshMisEventos={refreshMisEventos}
                         refreshEventsGenerales={getEventsGen}
                     />
                 }

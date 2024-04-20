@@ -69,6 +69,8 @@ export function Home() {
         const userId = user?.sub
         axios.put(`http://localhost:5000/eventos/registrar/${eventoId}`, { userId })
             .then(resp => {
+                console.log(resp.data.message)
+                alert(resp.data.message)
                 getMisEventosAge();
                 getEvents();
             })
@@ -94,6 +96,7 @@ export function Home() {
         <div className="flex flex-col min-h-screen">
             <Navbar
                 refreshEvents={getMisEventosAge}
+                refreshMisEventos={getMisEventos}
                 refreshEventsGenerales={getEvents}
             />
             <div className={isAuthenticated ? "bg-gradient-to-r from-[#18012E] via-[#322894] to-[#18012E]" : "bgCustom"}>

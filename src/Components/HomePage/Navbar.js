@@ -6,7 +6,7 @@ import NotificationButton from './NotificationButton';
 import SearchBar from '../Search';
 import BtnEvent from '../BntEvent';
 
-export function Navbar({ refreshEvents, refreshEventsGenerales }) {
+export function Navbar({ refreshEvents, refreshMisEventos, refreshEventsGenerales }) {
     const { isAuthenticated } = useAuth0();
 
     const getEvents = () => {
@@ -44,6 +44,7 @@ export function Navbar({ refreshEvents, refreshEventsGenerales }) {
                                 <div className="h-12 border-2 border-white"></div>
                                 <BtnEvent
                                     refreshEvents={getEvents}
+                                    refreshMisEventos={refreshMisEventos}
                                     refreshEventsGenerales={getEventsGen}
                                 />
                             </>

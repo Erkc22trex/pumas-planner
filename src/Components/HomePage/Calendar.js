@@ -26,8 +26,8 @@ function Calendar({ getMisEventos, getMisEventosAge, misEventos }) {
 
     // Función para abrir el formulario de edición
     const EditEvent = (eventId) => {
-        console.log(eventId);
-
+        const evento = misEventos.filter(event => event._id === eventId);
+        setEventoEditar(evento[0])
     };
 
     if (!isAuthenticated) {
@@ -41,6 +41,8 @@ function Calendar({ getMisEventos, getMisEventosAge, misEventos }) {
                     <Form
                         mode='EDIT'
                         evento={EventoEditar}
+                        refreshMisEventos={getMisEventos}
+                        refreshEvents={getMisEventosAge}
                         onClose={toggleOpen}
                     />
                 }

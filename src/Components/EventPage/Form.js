@@ -7,19 +7,21 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 import Confetti from "canvas-confetti"
 
-export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents, refreshEventsGenerales }) {
+export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents, refreshMisEventos, refreshEventsGenerales }) {
     const { register, handleSubmit, control, reset, setValue, formState: { errors } } = useForm();
     const { user } = useAuth0();
     const [imagePreview, setImagePreview] = useState(evento.image || null);
 
     const getEvents = () => {
-        console.log("Se ejecuta")
         refreshEvents();
     };
 
     const getEventsGen = () => {
-        console.log("Se ejecuta")
         refreshEventsGenerales();
+    };
+
+    const getMisEventos = () => {
+        refreshMisEventos();
     };
 
     const onSubmit = (data) => {
@@ -31,8 +33,10 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                 .then(res => {
                     console.log(res.data);
                     getEvents();
+                    getMisEventos();
                     getEventsGen();
                     setImagePreview(null);
+                    reset();
                     Confetti();
                     onClose();
                 })
@@ -40,20 +44,22 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                     console.log(err);
                 });
         } else if (mode === "EDIT") {
-            console.log(data);
             axios.put(`http://localhost:5000/eventos/editar/${evento._id}`, {
                 ...data,
+                image: imagePreview,
                 id_usr: user?.sub
             })
                 .then(res => {
                     console.log(res.data);
+                    getEvents();
+                    getMisEventos();
+                    reset();
                     onClose();
                 })
                 .catch(err => {
                     console.log(err);
                 });
-        }
-        reset();
+        }        
     };
 
     useEffect(() => {
