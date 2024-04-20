@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Login from '../Login';
-import Logout from '../Logoutwithredirect';
+//import Logout from '../Logoutwithredirect';
 import DropdownBtn from '../Button';
 import NotificationButton from './NotificationButton';
 import SearchBar from '../Search';

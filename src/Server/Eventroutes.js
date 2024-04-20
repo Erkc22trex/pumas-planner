@@ -93,26 +93,15 @@ router.get('/filtrarNo/:id', async (req, res) => {
     }
 });
 
-
-router.put('/registrar/:id', async (req, res) => {
-    const eventId = req.params.id;
-    const { userId } = req.body;
-
-    try {
-        const evento = await Evento.findById(eventId);
-        if (!evento) {
-            return res.status(404).json({ message: 'Evento no encontrado' });
-        }
-
-        evento.usrs_registrados.push(userId);
-        await evento.save();
-
-        res.json({ message: 'Usr_id asignado correctamente al evento' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Hubo un error al asignar usr_id al evento' });
-    }
-})
+// router.get('/filtrar/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const evento = await Evento.findById(id);
+//     res.status(200).json(evento);
+//   } catch (error) {
+//     res.status(500).json({ message: error, message })
+//   }
+// });
 
 // Ruta para editar un comentario existente (PUT/PATCH)
 router.put('/editar/:id', async (req, res) => {

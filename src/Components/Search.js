@@ -1,47 +1,60 @@
-import React from 'react';
-import { useState } from 'react';
-import Eventos from '../Models/Eventmodel';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default function SearchBar() { 
+// Importar estilos de Tailwind CSS
+import 'tailwindcss/tailwind.css';
 
-  const [ search, setSearch ] = useState("")
+export default function SearchBar() {
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
 
-//funcion de captura de datos en la busqueda
-const searcher = (e) => {
-	setSearch(e.value.target.value)
-	//console.log(e.target.value) esto muestra en consola los datos que captura es opcional por si quieren ver en consola los resultados
-}
-
-//metodo para filtrar
-let results = []
-if(!search)
-{
-	results = Eventos   //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
-	
-}else{
-	results = Eventos.filtrer( (dato) => //users es de donde se trae la tabla con los resultados, cambiar a la tabla o la funcion donde tengan los datos
-	dato.name.toLowerCase().includes(search.tolocaleLowerCase()) //.name es por la columna de la tabla a filtrar o nombre del evento
-	)
-}
+  const handleSearch = async (e) => {
+    const query = e.target.value;
+    setSearch(query);
+    try {
+      const response = await axios.get(`http://localhost:5000/eventos/buscar?nombre=${query}`);
+      setResults(response.data);
+    } catch (error) {
+      console.error('Error al buscar eventos:', error);
+      // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+    }
+  };
 
   return (
-    <div className='Search-bar'>
-      <form className="flex items-center w-80 md:w-[500px] p-2 bg-white rounded-lg shadow-md">
-        <input
-          type="search" 
-          onChange = {searcher} // aqui  se manda a llamar el filtrado en la barra de busqueda al estar escribiendo
-          id="default-search"
-          className="block w-full py-2 pl-3 pr-3 text-md text-gray-900 bg-transparent border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none"
-          placeholder="Buscar..."
-          required
-        />
-        <button
-          type="submit"
-          className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Buscar
-        </button>
-      </form>
+    <div className="relative">
+      <div className='Search-bar'>
+        <form className="flex items-center w-80 md:w-[500px] p-2 bg-white rounded-lg shadow-md">
+          <input
+            type="search"
+            value={search}
+            onChange={handleSearch}
+            id="default-search"
+            className="block w-full py-2 pl-3 pr-3 text-md text-gray-900 bg-transparent border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none"
+            placeholder="Buscar..."
+            required
+          />
+        </form>
+      </div>
+      {search !== "" && ( // Mostrar resultados solo si hay una búsqueda activa
+        <div className="absolute top-full mt-2 bg-white w-full rounded-lg shadow-md border border-gray-200">
+          <div className="p-4">
+            {results.length > 0 &&
+              results.map((evento) => (
+                <div key={evento._id} className="evento shadow-md p-4 mb-4 rounded-lg border border-gray-200">
+                  <h3 className="text-xl font-bold mb-2">{evento.nombre}</h3>
+                  {evento.image && <img src={evento.image} alt={evento.nombre} className="w-full h-auto max-w-[200px]" />}
+                </div>
+              ))
+            }
+            {results.length === 0 && (
+              <p className="text-gray-500">No se encontraron resultados</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+
+
