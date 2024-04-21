@@ -159,6 +159,20 @@ router.put('/editar/:id', async (req, res) => {
         res.status(500).json({ message: error, message })
     }
 });
+
+router.get('/detalles/:id', async (req, res) => {
+    // Lógica para editar un evento por su ID
+    try {
+        const evento = await Evento.findById(req.params.id); // Suponiendo que utilizas Mongoose para interactuar con MongoDB
+        if (!evento) {
+          return res.status(404).json({ mensaje: 'Evento no encontrado' });
+        }
+        res.json(evento); // Devuelve los detalles del evento como JSON
+      } catch (error) {
+        console.error('Error al obtener detalles del evento:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor' });
+      }
+});
 router.put('/eliminar/:id', async (req, res) => {
     try {
         const { id } = req.params;
