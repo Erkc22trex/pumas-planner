@@ -59,7 +59,7 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                 .catch(err => {
                     console.log(err);
                 });
-        }        
+        }
     };
 
     useEffect(() => {
@@ -143,49 +143,51 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
                         {...register("descripcion", { required: true })}
                         rows="4"
                         className="w-full p-2 mt-1 bg-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        style={{ maxHeight: '200px', overflowY: 'auto' }}
                     ></textarea>
+
                 </div>
 
                 <Map />
 
                 <div>
-    <label>Subir Imagen</label>
-    <Controller
-        name="image"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-            <>
-                <input
-                    type="file"
-                    onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                            // Comprueba si el tamaño del archivo es mayor a 2MB
-                            if (file.size > 2 * 1024 * 1024) {
-                                alert('La imagen no debe pesar más de 2MB');
-                            } else {
-                                const reader = new FileReader();
-                                reader.onloadend = () => {
-                                    field.onChange(reader.result);
-                                    setImagePreview(reader.result);
-                                };
-                                reader.readAsDataURL(file);
-                            }
-                        }
-                    }}
-                />
-                {imagePreview && (
-                    <img
-                        src={imagePreview}
-                        alt="Vista previa de la imagen"
-                        style={{ maxWidth: '100%', marginTop: '10px' }}
+                    <label>Subir Imagen</label>
+                    <Controller
+                        name="image"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <>
+                                <input
+                                    type="file"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            // Comprueba si el tamaño del archivo es mayor a 2MB
+                                            if (file.size > 2 * 1024 * 1024) {
+                                                alert('La imagen no debe pesar más de 2MB');
+                                            } else {
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    field.onChange(reader.result);
+                                                    setImagePreview(reader.result);
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }
+                                    }}
+                                />
+                                {imagePreview && (
+                                    <img
+                                        src={imagePreview}
+                                        alt="Vista previa de la imagen"
+                                        style={{ maxWidth: '100%', marginTop: '10px' }}
+                                    />
+                                )}
+                            </>
+                        )}
                     />
-                )}
-            </>
-        )}
-    />
-</div>
+                </div>
 
                 <div className="flex justify-between">
                     <Btn type="submit">{mode === "ADD" ? "Guardar" : "Actualizar"}</Btn>

@@ -13,16 +13,16 @@ function Calendar({ getMisEventos, getMisEventosAge, misEventos, onDesagendarEve
     const toggleOpen = () => setIsOpen(!isOpen)
 
     // Función para eliminar un evento
-    const deleteEvent = (eventId) => {
-        axios.delete(`http://localhost:5000/eventos/eliminar/${eventId}`)
-            .then(res => {
-                getMisEventos();
-                getMisEventosAge();
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+    // const deleteEvent = (eventId) => {
+    //     axios.delete(`http://localhost:5000/eventos/eliminar/${eventId}`)
+    //         .then(res => {
+    //             getMisEventos();
+    //             getMisEventosAge();
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
+    // };
 
     // Función para abrir el formulario de edición
     const EditEvent = (eventId) => {

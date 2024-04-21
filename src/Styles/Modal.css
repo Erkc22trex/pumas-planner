@@ -39,7 +39,7 @@
 
 .modal {
     z-index: 2;
-    width: 650px; /* Aumentar el ancho */
+    width: 850px; /* Aumentar el ancho */
     height: auto; /* Opcional: puede usar 'height' para controlar la altura si el contenido es variable */
     top: 30%; /* Ajustar la posición vertical */
     left: 50%; /* Ajustar la posición horizontal */
