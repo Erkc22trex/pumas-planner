@@ -7,7 +7,7 @@ import "../../Styles/Button.css"
 export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view = false, onAgendarEvento, onDesagendarEvento }) {
   const handleButtonClick1 = () => {
     console.log('Button 1 clicked');
-    // ReactDOM.render(<Descrip />, document.getElementById('root'));
+    ReactDOM.render(<Descrip />, document.getElementById('root'));
   };
 
   const handleCalendarButtonClick = () => {
