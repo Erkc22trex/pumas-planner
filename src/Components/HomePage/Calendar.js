@@ -5,7 +5,7 @@ import Form from '../EventPage/Form';
 import "../../Styles/DeleteButton.css"
 import { Modal } from '../../Components/HomePage/Modal';
 
-function Calendar({ getMisEventos, getMisEventosAge, misEventos }) {
+function Calendar({ getMisEventos, getMisEventosAge, misEventos, onDesagendarEvento }) { // Agrega onDesagendarEvento como una prop
     const [EventoEditar, setEventoEditar] = useState({});
     const { isAuthenticated } = useAuth0();
 
@@ -64,7 +64,7 @@ function Calendar({ getMisEventos, getMisEventosAge, misEventos }) {
                                         EditEvent(evento._id)
                                     }} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2">Editar</button>
 
-                                    <button onClick={() => deleteEvent(evento._id)} className="button rounded mt-2 ml-2" type="button">
+                                    <button onClick={() => onDesagendarEvento(evento._id)} className="button rounded mt-2 ml-2" type="button">
                                         <span className="button__text">Eliminar</span>
                                         <span className="button__icon">
                                             <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">

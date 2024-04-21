@@ -132,6 +132,7 @@ export function Home() {
                             getMisEventos={getMisEventos}
                             getMisEventosAge={getMisEventosAge}
                             misEventos={misEventos}
+                            onDesagendarEvento={onDesagendarEvento} // Pasar la función como prop
                         />
                     </div>
                 </div>
