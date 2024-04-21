@@ -4,6 +4,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Descrip from '../../Pages/Eventdetail';
 import "../../Styles/Button.css"
 
+//setInterval("location.reload()",30000);
+
 export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view = false, onAgendarEvento, onDesagendarEvento }) {
   const handleButtonClick1 = () => {
     console.log('Button 1 clicked');

@@ -110,6 +110,7 @@ const Descrip = ({ id }) => {
             <button
               type="button"
               className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
+              onClick="location.reload()"
             >
               Salir
             </button>
