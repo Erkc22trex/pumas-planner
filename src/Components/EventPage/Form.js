@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 import Confetti from "canvas-confetti"
 
-export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents, refreshMisEventos, refreshEventsGenerales }) {
+export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents, refreshMisEventos, refreshEventsGenerales,  }) {
     const { register, handleSubmit, control, reset, setValue, formState: { errors } } = useForm();
     const { user } = useAuth0();
     const [imagePreview, setImagePreview] = useState(evento.image || null);
@@ -188,10 +188,11 @@ export default function Form({ onClose, evento = {}, mode = "ADD", refreshEvents
 </div>
 
                 <div className="flex justify-between">
-                    <Btn type="submit">{mode === "ADD" ? "Guardar" : "Actualizar"}</Btn>
+                    <Btn type="submit" >{mode === "ADD" ? "Guardar" : "Actualizar" }</Btn>
                     <Btn type="button" onClick={() => {
                         onClose()
                         reset()
+                        
                     }}>Salir</Btn>
                 </div>
             </form>
