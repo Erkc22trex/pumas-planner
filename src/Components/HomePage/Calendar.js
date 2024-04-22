@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Form from '../EventPage/Form';
 import "../../Styles/DeleteButton.css"
 import { Modal } from '../../Components/HomePage/Modal';
+import MyCalendar from '../../Components/HomePage/MyCalendar';
 
 function Calendar({ getMisEventos, getMisEventosAge, misEventos, onDesagendarEvento }) { // Agrega onDesagendarEvento como una prop
     const [EventoEditar, setEventoEditar] = useState({});
@@ -48,6 +49,7 @@ function Calendar({ getMisEventos, getMisEventosAge, misEventos, onDesagendarEve
                 }
             </Modal>
             <div className="w-full bg-blue-800 p-5 rounded-lg overflow-hidden">
+                <MyCalendar/>
                 <div className="text-l font-bold text-white mt-4 mb-2">EVENTOS CREADOS</div>
                 <hr className="border-t border-white border-solid my-4 w-full" />
                 <div className="max-h-[96vh] overflow-y-auto scrollbar">
