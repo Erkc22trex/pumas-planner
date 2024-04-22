@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('C:\Users\aaron\Downloads\Proyecto LP4\pumas-planner\public\bg.jpeg'); /* Reemplaza 'ruta/a/la/imagen.jpg' con la ruta de tu imagen */
+    background-image: url('../../public/bg.jpeg'); /* Reemplaza 'ruta/a/la/imagen.jpg' con la ruta de tu imagen */
     background-size: cover;
     background-position: center;
   }
