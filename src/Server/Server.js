@@ -29,6 +29,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 app.use('/eventos', require("./Eventroutes.js"));
+app.use('/user', require("./Userroutes.js"));
 app.use('/eventos/comentarios', require("./Commentroutes.js"));
 app.use('/eventos/participantes', require("./Participantroutes.js"));
 app.use(express.static(__dirname + "/public"));

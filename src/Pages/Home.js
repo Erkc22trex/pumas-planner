@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Navbar } from '../Components/HomePage/Navbar';
-import { Footer } from '../Components/HomePage/Footer';
+//import { Footer } from '../Components/HomePage/Footer';
 import { FormContacto } from '../Components/HomePage/form-contacto';
 import Calendar from '../Components/HomePage/Calendar';
 import { useAuth0 } from '@auth0/auth0-react';

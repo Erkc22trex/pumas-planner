@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('C:\Users\user\Documents\GitHub\pumas-planner\public\bg.jpeg'); /* Reemplaza 'ruta/a/la/imagen.jpg' con la ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+  }
+
+.register-container {
+    background-color: #FBBF24;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px; /* Tamaño original del formulario */
+    margin: auto; /* Centrar el contenedor del formulario en la pantalla */
+  }
+  
+  
+  
+  
+  .register-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .register-form {
+    background-color: #FBBF24;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .register-button {
+    background-color: #5954E5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background-color: #0056b3;
+  }
+  
