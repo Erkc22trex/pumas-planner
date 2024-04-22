@@ -12,7 +12,7 @@ const Login = () => {
                 Iniciar Sesión
             </button>
             <Link to="/register">
-                <button className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded ml-4">
+                <button className="bg-blue-800 hover:bg-green-400 text-white font-bold py-2 px-4 rounded ml-4">
                     Registrarse
                 </button>
             </Link>

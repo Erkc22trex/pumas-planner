@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'; 
+
 import '../Styles/Register.css';
 
 const Register = () => {
@@ -15,14 +17,23 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      // Envía los datos del formulario al servidor para el registro
       const response = await axios.post('http://localhost:5000/user/register', formData);
-      console.log(response.data); // Maneja la respuesta del servidor según sea necesario
+      console.log(response.data);
+
+      // Muestra una alerta de registro exitoso
+      Swal.fire({
+        icon: 'success',
+        title: '¡Registro exitoso!',
+        text: 'Ahora puedes iniciar sesión',
+      });
     } catch (error) {
-      console.error('Error al registrar usuario:', error);
-      // Maneja los errores de registro según sea necesario
+      Swal.fire({
+        icon: 'error',
+        title: 'Ha ocurrido un error',
+        text: 'No se pudo completar el registro, por favor intenta nuevamente',
+      });
     }
   };
 
