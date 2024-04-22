@@ -107,6 +107,7 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view
           </div>
         )}
       </div>
+      {isAuthenticated && (
       <div className="flex justify-center">
         <button className="learn-more" onClick={handleButtonClick1}>
           <span className="circle" aria-hidden="true">
@@ -115,6 +116,7 @@ export function Card({ _id, nombre, image, descripcion, hora, lugar, fecha, view
           <span className="button-text">Detalles</span>
         </button>
       </div>
+      )};
     </div>
   );
 }
